@@ -1341,5 +1341,6 @@ def make_user_profile(email, password, team_id):
     print(user['players'][0]['web_name'])
 
 # run method
-# make_user_profile('cunheez3@gmail.com', 'Tottenham7', 307976)
+#make_user_profile('cunheez3@gmail.com', 'Tottenham7', 307976)
 #make_user_profile('jan6person@hotmail.com', 'Winter2011', 709137)
+#print(user['players'][1]['web_name'])

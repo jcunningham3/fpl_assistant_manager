@@ -1,10 +1,73 @@
 {% extends 'base.html' %}
 {% block title %}{% endblock %}
 {% block content %}
-<h3>{{ users.team_name }}</h3>
-<h5><span><b>FPL Rank:</b> {{ users.overall_rank }} </span>   <span><b>Total PTS:</b> {{ users.overall_points }}</span> <span><b>Gameweek PTS: </b> {{ users.gameweek_points }}</span></h5>
+<style>
+  img {
+    width: 40px;
+  }
+</style>
+<!-- TEAM NAME AND PITCH VIEW -->
 <div class="container">
-  <h5>name: {{ users.p1_first_name }} {{ users.p1_second_name }}</h5>
-  <p>Cost: {{ users.p1_now_cost }}</p>
-</div>
+  <h3 class="w3-margin">{{ users['team_name'] }}</h3>
+  <div class="w3-cell w3-padding"><b>Total Points:</b> {{ users['overall_points'] }}</div>
+  <div class="w3-cell w3-padding"><b>Overall Rank:</b> {{ users['overall_rank'] }}</div>
+
+  <!-- PITCH VIEW LARGE AND SMALL########################################## -->
+  <div class="container">
+
+    <!-- pitch view -- large screens-->
+    <div class="w3-display-container w3-center w3-hide-small w3-hide-medium">
+      <img src="\static\img\pitch1.png" alt="" style="width:80%; height: 500px;">
+    </div>
+
+    <!-- pitch view -- medium/small screens-->
+    <div class="w3-display-container w3-center w3-hide-large">
+      <img src="\static\img\pitch1.png" alt="" style="width:100%">
+      <div class="w3-display-topmiddle" style="width: 105%;">
+
+        <!-- goalies -->
+        <div class="btn-toolbar d-flex justify-content-center pt-5">
+          <!-- player button -->
+          <div class="btn" data-toggle="modal" data-target="#id{{users['p1_element']}}">
+            <!-- player img -->
+            <div class="container">
+              {% for jersey in jerseys %}
+              {% if users['p1_team'] == jersey['id'] %}
+              <!-- jersey -->
+              <img src="{{jersey['jersey_goal']}}" alt="img">
+              {% endif %}
+              {% endfor %}
+            </div>
+            <!-- player info -->
+            <div class="container">
+              <p>{{ users['p1_web_name'] }}</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- defenders -->
+        <div class="btn-toolbar d-flex justify-content-center pt-5">
+          <!-- player button -->
+          <div class="btn" data-toggle="modal" data-target="#id{{users['p1_element']}}">
+            <!-- player img -->
+            <div class="container">
+              {% for jersey in jerseys %}
+              {% if users['p2_team'] == jersey['id'] %}
+              <!-- jersey -->
+              <img src="{{jersey['jersey']}}" alt="img">
+              {% endif %}
+              {% endfor %}
+            </div>
+            <!-- player info -->
+            <div class="container">
+              <p>{{ users['p2_web_name'] }}</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+</div><hr>
+
 {% endblock %}
