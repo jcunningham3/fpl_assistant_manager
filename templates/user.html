@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block title %}{% endblock %}
+{% block content %}
+<h3>{{ users.team_name }}</h3>
+<h5><span><b>FPL Rank:</b> {{ users.overall_rank }} </span>   <span><b>Total PTS:</b> {{ users.overall_points }}</span> <span><b>Gameweek PTS: </b> {{ users.gameweek_points }}</span></h5>
+<div class="container">
+  <h5>name: {{ users.p1_first_name }} {{ users.p1_second_name }}</h5>
+  <p>Cost: {{ users.p1_now_cost }}</p>
+</div>
+{% endblock %}
