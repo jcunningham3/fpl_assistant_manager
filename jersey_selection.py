@@ -28,7 +28,7 @@ jersey_list = [
         'id': 5,
         'name': 'Burnley',
         'jersey': '\static\img\jerseys\shirt_90-66_bur.webp',
-        'jersey_goal': '\static\img\jerseys\burg.webp'
+        'jersey_goal': '\static\img\jerseys\shirt_90_1-66_burg.webp'
     },
     {
         'id': 6,
