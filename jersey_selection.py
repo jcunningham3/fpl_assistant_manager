@@ -3,7 +3,7 @@ jersey_list = [
     {
         'id': 1,
         'name': 'Arsenal',
-        'jersey': '\static\img\jerseys\ars.webp',
+        'jersey': '\static\img\jerseys\shirt_3-66_ars.webp',
         'jersey_goal': '\static\img\jerseys\arsg.webp'
     },
     {

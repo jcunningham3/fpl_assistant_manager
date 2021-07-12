@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% block title %}{% endblock %}
+{% block title %}{{ users['team_name'] }}{% endblock %}
 {% block content %}
 <style>
   img {
@@ -22,11 +22,10 @@
 
     <!-- pitch view -- medium/small screens-->
     <div class="w3-display-container w3-center w3-hide-large">
-      <img src="\static\img\pitch1.png" alt="" style="width:100%">
-      <div class="w3-display-topmiddle" style="width: 105%;">
-
+      <img src="\static\img\pitch1.png" alt="" style="width:100%; height:430px;;">
+      <div class="w3-display-topmiddle" style="width: 100%;">
         <!-- keeper -->
-        <div class="btn-toolbar d-flex justify-content-center pt-5">
+        <div class="btn-toolbar d-flex justify-content-center pt-3">
           <!-- player button -->
           <div class="btn" data-toggle="modal" data-target="#id{{users['p1_element']}}">
             <!-- player img -->
@@ -44,11 +43,10 @@
             </div>
           </div>
         </div>
-
         <!-- defenders -->
-        <div class="btn-toolbar d-flex justify-content-center pt-5">
+        <div class="btn-toolbar d-flex justify-content-center">
           <!-- player 2 button -->
-          <div class="btn" data-toggle="modal" data-target="#id{{users['p1_element']}}">
+          <div class="btn" data-toggle="modal" data-target="#id{{users['p2_element']}}">
             <!-- player img -->
             <div class="container">
               {% for jersey in jerseys %}
@@ -65,7 +63,7 @@
           </div>
 
           <!-- player 3 button -->
-          <div class="btn" data-toggle="modal" data-target="#id{{users['p1_element']}}">
+          <div class="btn" data-toggle="modal" data-target="#id{{users['p3_element']}}">
             <!-- player img -->
             <div class="container">
               {% for jersey in jerseys %}
@@ -82,7 +80,7 @@
           </div>
 
           <!-- player 4 button -->
-          <div class="btn" data-toggle="modal" data-target="#id{{users['p1_element']}}">
+          <div class="btn" data-toggle="modal" data-target="#id{{users['p4_element']}}">
             <!-- player img -->
             <div class="container">
               {% for jersey in jerseys %}
@@ -99,7 +97,7 @@
           </div>
 
           <!-- player 4 button -->
-          <div class="btn" data-toggle="modal" data-target="#id{{users['p1_element']}}">
+          <div class="btn" data-toggle="modal" data-target="#id{{users['p5_element']}}">
             <!-- player img -->
             <div class="container">
               {% for jersey in jerseys %}
@@ -116,20 +114,274 @@
           </div>
 
         </div>
-
         <!-- midfielders -->
-        <div class="btn-toolbar d-flex justify-content-center pt-5">
+        <div class="btn-toolbar d-flex justify-content-center">
+          <!-- player 2 button -->
+          <div class="btn" data-toggle="modal" data-target="#id{{users['p6_element']}}">
+            <!-- player img -->
+            <div class="container">
+              {% for jersey in jerseys %}
+              {% if users['p6_team'] == jersey['id'] %}
+              <!-- jersey -->
+              <img src="{{jersey['jersey']}}" alt="img">
+              {% endif %}
+              {% endfor %}
+            </div>
+            <!-- player info -->
+            <div class="container">
+              <p>{{ users['p6_web_name'] }}</p>
+            </div>
+          </div>
+
+          <!-- player 3 button -->
+          <div class="btn" data-toggle="modal" data-target="#id{{users['p7_element']}}">
+            <!-- player img -->
+            <div class="container">
+              {% for jersey in jerseys %}
+              {% if users['p7_team'] == jersey['id'] %}
+              <!-- jersey -->
+              <img src="{{jersey['jersey']}}" alt="img">
+              {% endif %}
+              {% endfor %}
+            </div>
+            <!-- player info -->
+            <div class="container">
+              <p>{{ users['p7_web_name'] }}</p>
+            </div>
+          </div>
+
+          <!-- player 4 button -->
+          <div class="btn" data-toggle="modal" data-target="#id{{users['p8_element']}}">
+            <!-- player img -->
+            <div class="container">
+              {% for jersey in jerseys %}
+              {% if users['p8_team'] == jersey['id'] %}
+              <!-- jersey -->
+              <img src="{{jersey['jersey']}}" alt="img">
+              {% endif %}
+              {% endfor %}
+            </div>
+            <!-- player info -->
+            <div class="container">
+              <p>{{ users['p8_web_name'] }}</p>
+            </div>
+          </div>
+
+          <!-- player 4 button -->
+          <div class="btn" data-toggle="modal" data-target="#id{{users['p9_element']}}">
+            <!-- player img -->
+            <div class="container">
+              {% for jersey in jerseys %}
+              {% if users['p9_team'] == jersey['id'] %}
+              <!-- jersey -->
+              <img src="{{jersey['jersey']}}" alt="img">
+              {% endif %}
+              {% endfor %}
+            </div>
+            <!-- player info -->
+            <div class="container">
+              <p>{{ users['p9_web_name'] }}</p>
+            </div>
+          </div>
 
         </div>
+        <!-- forwards -->
+        <div class="btn-toolbar d-flex justify-content-center">
+          <!-- player 2 button -->
+          <div class="btn" data-toggle="modal" data-target="#id{{users['p10_element']}}">
+            <!-- player img -->
+            <div class="container">
+              {% for jersey in jerseys %}
+              {% if users['p10_team'] == jersey['id'] %}
+              <!-- jersey -->
+              <img src="{{jersey['jersey']}}" alt="img">
+              {% endif %}
+              {% endfor %}
+            </div>
+            <!-- player info -->
+            <div class="container">
+              <p>{{ users['p10_web_name'] }}</p>
+            </div>
+          </div>
 
-        <!-- forwardss -->
-        <div class="btn-toolbar d-flex justify-content-center pt-5">
+          <!-- player 3 button -->
+          <div class="btn" data-toggle="modal" data-target="#id{{users['p11_element']}}">
+            <!-- player img -->
+            <div class="container">
+              {% for jersey in jerseys %}
+              {% if users['p11_team'] == jersey['id'] %}
+              <!-- jersey -->
+              <img src="{{jersey['jersey']}}" alt="img">
+              {% endif %}
+              {% endfor %}
+            </div>
+            <!-- player info -->
+            <div class="container">
+              <p>{{ users['p11_web_name'] }}</p>
+            </div>
+          </div>
 
         </div>
 
       </div>
     </div>
 
+    <!-- subs -->
+    <div class="btn-toolbar d-flex justify-content-center">
+      <!-- player 2 button -->
+      <div class="btn" data-toggle="modal" data-target="#id{{users['p12_element']}}">
+        <!-- player img -->
+        <div class="container">
+          {% for jersey in jerseys %}
+          {% if users['p12_team'] == jersey['id'] %}
+          <!-- jersey -->
+          <img src="{{jersey['jersey']}}" alt="img">
+          {% endif %}
+          {% endfor %}
+        </div>
+        <!-- player info -->
+        <div class="container">
+          <p>{{ users['p12_web_name'] }}</p>
+        </div>
+      </div>
+
+      <!-- player 3 button -->
+      <div class="btn" data-toggle="modal" data-target="#id{{users['p13_element']}}">
+        <!-- player img -->
+        <div class="container">
+          {% for jersey in jerseys %}
+          {% if users['p13_team'] == jersey['id'] %}
+          <!-- jersey -->
+          <img src="{{jersey['jersey']}}" alt="img">
+          {% endif %}
+          {% endfor %}
+        </div>
+        <!-- player info -->
+        <div class="container">
+          <p>{{ users['p13_web_name'] }}</p>
+        </div>
+      </div>
+
+      <!-- player 4 button -->
+      <div class="btn" data-toggle="modal" data-target="#id{{users['p14_element']}}">
+        <!-- player img -->
+        <div class="container">
+          {% for jersey in jerseys %}
+          {% if users['p14_team'] == jersey['id'] %}
+          <!-- jersey -->
+          <img src="{{jersey['jersey']}}" alt="img">
+          {% endif %}
+          {% endfor %}
+        </div>
+        <!-- player info -->
+        <div class="container">
+          <p>{{ users['p14_web_name'] }}</p>
+        </div>
+      </div>
+
+      <!-- player 4 button -->
+      <div class="btn" data-toggle="modal" data-target="#id{{users['p15_element']}}">
+        <!-- player img -->
+        <div class="container">
+          {% for jersey in jerseys %}
+          {% if users['p15_team'] == jersey['id'] %}
+          <!-- jersey -->
+          <img src="{{jersey['jersey']}}" alt="img">
+          {% endif %}
+          {% endfor %}
+        </div>
+        <!-- player info -->
+        <div class="container">
+          <p>{{ users['p15_web_name'] }}</p>
+        </div>
+      </div>
+
+    </div>
+
 </div><hr>
+
+<!-- BOTTOM NAVIGATION #################################################### -->
+<div class=" container-fluid btn-toolbar d-flex justify-content-center">
+
+  <!-- CLUB ANALYSIS -->
+  <button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#analysis">Analysis</button>
+  <div id="analysis" class="collapse">
+    <div class="">
+      <h5>ASSITANT MANAGER'S NOTES</h5>
+      <!-- The Scout -->
+      <a href="https://www.premierleague.com/news/2178603">
+        <div class="container-fluid d-flex justify-content-center">
+          <h5 class="px-3 pt-3">FPL <i>Scout</i></h5>
+          <img style="width: 300px;" src="https://resources.premierleague.com/photos/2021/06/25/ea984f00-e553-4700-80a8-d13dbd5bfb5d/GettyImages-1319887209-1-.jpg?width=906&height=620" alt="">
+        </div>
+      </a>
+      <br>
+
+    </div>
+
+
+  </div>
+
+  <!-- CLASSIC LEAGUE TABLE -->
+  <button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#league_table">Classic League</button>
+  <div id="league_table" class="collapse">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>position</th>
+          <th>team name</th>
+          <th>points</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>{{users['team_name']}}</td>
+          <td></td>
+          <td></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- CLASSIC LEAGUE AWARDS -->
+  <button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#league_awards">Manager Awards</button>
+  <div id="league_awards" class="collapse">
+    <!-- WEEKLY AWARDS -->
+    <h5>Weekly Awards</h5>
+    <div class="">
+      <div class="">
+        <div class="btn">Manager of the week Award</div>
+      </div>
+      <div class="">
+        <div class="btn">Flop of the week Award</div>
+      </div>
+      <div class="">
+        <div class="btn">Burnt Toast of the week Award</div>
+      </div>
+      <div class="">
+        <div class="btn">Best Transfer business of the week Award</div>
+      </div>
+    </div>
+
+    <!-- MONTHLY AWARDS -->
+    <h5>Monthly Awards</h5>
+    <div class="">
+      <div class="">
+        <div class="btn">Manager of the Month Award</div>
+      </div>
+      <div class="">
+        <div class="btn">Flop of the Month Award</div>
+      </div>
+      <div class="">
+        <div class="btn">Burnt Toast of the Month Award</div>
+      </div>
+      <div class="">
+        <div class="btn">Best Transfer business of the Month Award</div>
+      </div>
+    </div>
+
+  </div>
+
+</div><br>
 
 {% endblock %}

@@ -953,5 +953,4 @@ def user_route(user_id):
 @app.route('/logout')
 def logout():
     session.pop('user_id')
-    flash("Goodbye!")
     return redirect('/')
