@@ -1079,6 +1079,10 @@ user = {
     ]
 }
 starting_vi = []
+position1 = []
+
+
+
 
 def users_11(email, pwd, team_id):
     user = email
@@ -1182,6 +1186,19 @@ def all_footballers():
                 player['threat_rank_type'] = x['threat_rank_type']
                 player['ict_index_rank'] = x['ict_index_rank']
                 player['ict_index_rank_type'] = x['ict_index_rank_type']
+
+    # filter the best players for transfers suggestions
+    # position 1
+    for x in data['elements']:
+        if x['element_type'] == 1:
+            if x['total_points'] > user['players'][0]['total_points'] and x['web_name'] != user['players'][0]['web_name'] and x['web_name'] != user['players'][12]['web_name']:
+                position1.append(x['web_name'])
+            else:
+                position1.append("No Suggestions at this time")
+
+
+
+
 def user_personal_info(team_id):
     team_id = str(team_id)
     res = requests.get('https://fantasy.premierleague.com/api/entry/' + team_id + '/')
@@ -1337,10 +1354,8 @@ def make_user_profile(email, password, team_id):
     # update the rest of the user's player info with all data from this endpoint
     all_footballers()
 
-    print(user['team_name'])
-    print(user['players'][0]['web_name'])
-
 # run method
 #make_user_profile('cunheez3@gmail.com', 'Tottenham7', 307976)
 #make_user_profile('jan6person@hotmail.com', 'Winter2011', 709137)
-#print(user['players'][1]['web_name'])
+# classic league id -- 71437
+#print(position1[0])

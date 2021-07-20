@@ -1,7 +1,7 @@
 from flask import Flask, flash, request, redirect, render_template, session, g
 from models import connect_db, db, Users, Chat
 from forms import UserForm, ChatForm, LoginForm
-from methods import user, make_user_profile, all_footballers, user_personal_info, starting_vi
+from methods import user, make_user_profile, all_footballers, user_personal_info, starting_vi, position1
 from jersey_selection import jersey_list
 
 app = Flask(__name__)
@@ -28,7 +28,7 @@ def register_user():
         team_id = form.team_id.data
 
         #make the GET requests before password is hashed
-        player = user
+        #player = user
         make_user_profile(email, password, team_id)
 
         new_user = Users.register(email, password, team_id)
@@ -947,8 +947,13 @@ def login_user():
 @app.route('/user/<int:user_id>')
 def user_route(user_id):
     users = Users.query.get_or_404(user_id)
+
+    #update users team information
+    
+
     jerseys = jersey_list
-    return render_template('user.html', users=users, jerseys=jerseys)
+    position = position1
+    return render_template('user.html', users=users, jerseys=jerseys, position=position)
 
 @app.route('/logout')
 def logout():

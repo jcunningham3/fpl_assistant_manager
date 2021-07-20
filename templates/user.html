@@ -5,24 +5,37 @@
   img {
     width: 40px;
   }
+
+  .carousel-inner img {
+    width: 100%;
+    height: 100%;
+  }
 </style>
+
 <!-- TEAM NAME AND PITCH VIEW -->
 <div class="container">
-  <h3 class="w3-margin">{{ users['team_name'] }}</h3>
-  <div class="w3-cell w3-padding"><b>Total Points:</b> {{ users['overall_points'] }}</div>
-  <div class="w3-cell w3-padding"><b>Overall Rank:</b> {{ users['overall_rank'] }}</div>
+
+  <!-- Header on Large Screens -->
+  <div class="w3-hide-small w3-hide-medium" style="margin-left:110px;">
+    <h3 class="w3-margin">{{ users['team_name'] }}</h3>
+    <div class="w3-cell w3-padding"><b>Total Points:</b> {{ users['overall_points'] }}</div>
+    <div class="w3-cell w3-padding"><b>Overall Rank:</b> {{ users['overall_rank'] }}</div>
+    <div class="w3-cell w3-padding"><b>Gameweek Points:</b> {{ users['gameweek_points'] }}</div>
+  </div>
+  <!-- Header on medium and small Screens -->
+  <div class="w3-hide-large">
+    <h3 class="w3-margin">{{ users['team_name'] }}</h3>
+    <div class="w3-cell w3-padding"><b>Total Points:</b> {{ users['overall_points'] }}</div>
+    <div class="w3-cell w3-padding"><b>Overall Rank:</b> {{ users['overall_rank'] }}</div>
+    <div class="w3-cell w3-padding"><b>Gameweek Points:</b> {{ users['gameweek_points'] }}</div>
+  </div>
 
   <!-- PITCH VIEW LARGE AND SMALL########################################## -->
   <div class="container">
 
     <!-- pitch view -- large screens-->
     <div class="w3-display-container w3-center w3-hide-small w3-hide-medium">
-      <img src="\static\img\pitch1.png" alt="" style="width:80%; height: 500px;">
-    </div>
-
-    <!-- pitch view -- medium/small screens-->
-    <div class="w3-display-container w3-center w3-hide-large">
-      <img src="\static\img\pitch1.png" alt="" style="width:100%; height:430px;;">
+      <img src="\static\img\pitch1.png" alt="" style="width:80%; height: 560px;">
       <div class="w3-display-topmiddle" style="width: 100%;">
         <!-- keeper -->
         <div class="btn-toolbar d-flex justify-content-center pt-3">
@@ -40,6 +53,7 @@
             <!-- player info -->
             <div class="container">
               <p>{{ users['p1_web_name'] }}</p>
+              <p>{{ users['p1_event_points'] }}</p>
             </div>
           </div>
         </div>
@@ -59,6 +73,7 @@
             <!-- player info -->
             <div class="container">
               <p>{{ users['p2_web_name'] }}</p>
+              <p>{{ users['p2_event_points'] }}</p>
             </div>
           </div>
 
@@ -76,6 +91,7 @@
             <!-- player info -->
             <div class="container">
               <p>{{ users['p3_web_name'] }}</p>
+              <p>{{ users['p3_event_points'] }}</p>
             </div>
           </div>
 
@@ -93,6 +109,7 @@
             <!-- player info -->
             <div class="container">
               <p>{{ users['p4_web_name'] }}</p>
+              <p>{{ users['p4_event_points'] }}</p>
             </div>
           </div>
 
@@ -110,6 +127,7 @@
             <!-- player info -->
             <div class="container">
               <p>{{ users['p5_web_name'] }}</p>
+              <p>{{ users['p5_event_points'] }}</p>
             </div>
           </div>
 
@@ -130,6 +148,7 @@
             <!-- player info -->
             <div class="container">
               <p>{{ users['p6_web_name'] }}</p>
+              <p>{{ users['p6_event_points'] }}</p>
             </div>
           </div>
 
@@ -147,6 +166,7 @@
             <!-- player info -->
             <div class="container">
               <p>{{ users['p7_web_name'] }}</p>
+              <p>{{ users['p7_event_points'] }}</p>
             </div>
           </div>
 
@@ -164,6 +184,7 @@
             <!-- player info -->
             <div class="container">
               <p>{{ users['p8_web_name'] }}</p>
+              <p>{{ users['p8_event_points'] }}</p>
             </div>
           </div>
 
@@ -181,6 +202,7 @@
             <!-- player info -->
             <div class="container">
               <p>{{ users['p9_web_name'] }}</p>
+              <p>{{ users['p9_event_points'] }}</p>
             </div>
           </div>
 
@@ -201,6 +223,7 @@
             <!-- player info -->
             <div class="container">
               <p>{{ users['p10_web_name'] }}</p>
+              <p>{{ users['p10_event_points'] }}</p>
             </div>
           </div>
 
@@ -218,6 +241,224 @@
             <!-- player info -->
             <div class="container">
               <p>{{ users['p11_web_name'] }}</p>
+              <p>{{ users['p11_event_points'] }}</p>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+
+    <!-- pitch view -- medium/small screens-->
+    <div class="w3-display-container w3-center w3-hide-large">
+      <img src="\static\img\pitch1.png" alt="" style="width:100%; height:550px;;">
+      <div class="w3-display-topmiddle" style="width: 100%;">
+        <!-- keeper -->
+        <div class="btn-toolbar d-flex justify-content-center pt-3">
+          <!-- player button -->
+          <div class="btn" data-toggle="modal" data-target="#id{{users['p1_element']}}">
+            <!-- player img -->
+            <div class="container">
+              {% for jersey in jerseys %}
+              {% if users['p1_team'] == jersey['id'] %}
+              <!-- jersey -->
+              <img src="{{jersey['jersey_goal']}}" alt="img">
+              {% endif %}
+              {% endfor %}
+            </div>
+            <!-- player info -->
+            <div class="container">
+              <p>{{ users['p1_web_name'] }}</p>
+              <p>{{ users['p1_event_points'] }}</p>
+            </div>
+          </div>
+        </div>
+        <!-- defenders -->
+        <div class="btn-toolbar d-flex justify-content-center">
+          <!-- player 2 button -->
+          <div class="btn" data-toggle="modal" data-target="#id{{users['p2_element']}}">
+            <!-- player img -->
+            <div class="container">
+              {% for jersey in jerseys %}
+              {% if users['p2_team'] == jersey['id'] %}
+              <!-- jersey -->
+              <img src="{{jersey['jersey']}}" alt="img">
+              {% endif %}
+              {% endfor %}
+            </div>
+            <!-- player info -->
+            <div class="container">
+              <p>{{ users['p2_web_name'] }}</p>
+              <p>{{ users['p2_event_points'] }}</p>
+            </div>
+          </div>
+
+          <!-- player 3 button -->
+          <div class="btn" data-toggle="modal" data-target="#id{{users['p3_element']}}">
+            <!-- player img -->
+            <div class="container">
+              {% for jersey in jerseys %}
+              {% if users['p3_team'] == jersey['id'] %}
+              <!-- jersey -->
+              <img src="{{jersey['jersey']}}" alt="img">
+              {% endif %}
+              {% endfor %}
+            </div>
+            <!-- player info -->
+            <div class="container">
+              <p>{{ users['p3_web_name'] }}</p>
+              <p>{{ users['p3_event_points'] }}</p>
+            </div>
+          </div>
+
+          <!-- player 4 button -->
+          <div class="btn" data-toggle="modal" data-target="#id{{users['p4_element']}}">
+            <!-- player img -->
+            <div class="container">
+              {% for jersey in jerseys %}
+              {% if users['p4_team'] == jersey['id'] %}
+              <!-- jersey -->
+              <img src="{{jersey['jersey']}}" alt="img">
+              {% endif %}
+              {% endfor %}
+            </div>
+            <!-- player info -->
+            <div class="container">
+              <p>{{ users['p4_web_name'] }}</p>
+              <p>{{ users['p4_event_points'] }}</p>
+            </div>
+          </div>
+
+          <!-- player 4 button -->
+          <div class="btn" data-toggle="modal" data-target="#id{{users['p5_element']}}">
+            <!-- player img -->
+            <div class="container">
+              {% for jersey in jerseys %}
+              {% if users['p5_team'] == jersey['id'] %}
+              <!-- jersey -->
+              <img src="{{jersey['jersey']}}" alt="img">
+              {% endif %}
+              {% endfor %}
+            </div>
+            <!-- player info -->
+            <div class="container">
+              <p>{{ users['p5_web_name'] }}</p>
+              <p>{{ users['p5_event_points'] }}</p>
+            </div>
+          </div>
+
+        </div>
+        <!-- midfielders -->
+        <div class="btn-toolbar d-flex justify-content-center">
+          <!-- player 2 button -->
+          <div class="btn" data-toggle="modal" data-target="#id{{users['p6_element']}}">
+            <!-- player img -->
+            <div class="container">
+              {% for jersey in jerseys %}
+              {% if users['p6_team'] == jersey['id'] %}
+              <!-- jersey -->
+              <img src="{{jersey['jersey']}}" alt="img">
+              {% endif %}
+              {% endfor %}
+            </div>
+            <!-- player info -->
+            <div class="container">
+              <p>{{ users['p6_web_name'] }}</p>
+              <p>{{ users['p6_event_points'] }}</p>
+            </div>
+          </div>
+
+          <!-- player 3 button -->
+          <div class="btn" data-toggle="modal" data-target="#id{{users['p7_element']}}">
+            <!-- player img -->
+            <div class="container">
+              {% for jersey in jerseys %}
+              {% if users['p7_team'] == jersey['id'] %}
+              <!-- jersey -->
+              <img src="{{jersey['jersey']}}" alt="img">
+              {% endif %}
+              {% endfor %}
+            </div>
+            <!-- player info -->
+            <div class="container">
+              <p>{{ users['p7_web_name'] }}</p>
+              <p>{{ users['p6_event_points'] }}</p>
+            </div>
+          </div>
+
+          <!-- player 4 button -->
+          <div class="btn" data-toggle="modal" data-target="#id{{users['p8_element']}}">
+            <!-- player img -->
+            <div class="container">
+              {% for jersey in jerseys %}
+              {% if users['p8_team'] == jersey['id'] %}
+              <!-- jersey -->
+              <img src="{{jersey['jersey']}}" alt="img">
+              {% endif %}
+              {% endfor %}
+            </div>
+            <!-- player info -->
+            <div class="container">
+              <p>{{ users['p8_web_name'] }}</p>
+              <p>{{ users['p8_event_points'] }}</p>
+            </div>
+          </div>
+
+          <!-- player 4 button -->
+          <div class="btn" data-toggle="modal" data-target="#id{{users['p9_element']}}">
+            <!-- player img -->
+            <div class="container">
+              {% for jersey in jerseys %}
+              {% if users['p9_team'] == jersey['id'] %}
+              <!-- jersey -->
+              <img src="{{jersey['jersey']}}" alt="img">
+              {% endif %}
+              {% endfor %}
+            </div>
+            <!-- player info -->
+            <div class="container">
+              <p>{{ users['p9_web_name'] }}</p>
+              <p>{{ users['p9_event_points'] }}</p>
+            </div>
+          </div>
+
+        </div>
+        <!-- forwards -->
+        <div class="btn-toolbar d-flex justify-content-center">
+          <!-- player 2 button -->
+          <div class="btn" data-toggle="modal" data-target="#id{{users['p10_element']}}">
+            <!-- player img -->
+            <div class="container">
+              {% for jersey in jerseys %}
+              {% if users['p10_team'] == jersey['id'] %}
+              <!-- jersey -->
+              <img src="{{jersey['jersey']}}" alt="img">
+              {% endif %}
+              {% endfor %}
+            </div>
+            <!-- player info -->
+            <div class="container">
+              <p>{{ users['p10_web_name'] }}</p>
+              <p>{{ users['p10_event_points'] }}</p>
+            </div>
+          </div>
+
+          <!-- player 3 button -->
+          <div class="btn" data-toggle="modal" data-target="#id{{users['p11_element']}}">
+            <!-- player img -->
+            <div class="container">
+              {% for jersey in jerseys %}
+              {% if users['p11_team'] == jersey['id'] %}
+              <!-- jersey -->
+              <img src="{{jersey['jersey']}}" alt="img">
+              {% endif %}
+              {% endfor %}
+            </div>
+            <!-- player info -->
+            <div class="container">
+              <p>{{ users['p11_web_name'] }}</p>
+              <p>{{ users['p11_event_points'] }}</p>
             </div>
           </div>
 
@@ -228,7 +469,7 @@
 
     <!-- subs -->
     <div class="btn-toolbar d-flex justify-content-center">
-      <!-- player 2 button -->
+      <!-- player 12 button -->
       <div class="btn" data-toggle="modal" data-target="#id{{users['p12_element']}}">
         <!-- player img -->
         <div class="container">
@@ -242,10 +483,11 @@
         <!-- player info -->
         <div class="container">
           <p>{{ users['p12_web_name'] }}</p>
+          <div>{{ users['p12_event_points'] }}</div>
         </div>
       </div>
 
-      <!-- player 3 button -->
+      <!-- player 13 button -->
       <div class="btn" data-toggle="modal" data-target="#id{{users['p13_element']}}">
         <!-- player img -->
         <div class="container">
@@ -259,10 +501,11 @@
         <!-- player info -->
         <div class="container">
           <p>{{ users['p13_web_name'] }}</p>
+          <div>{{ users['p13_event_points'] }}</div>
         </div>
       </div>
 
-      <!-- player 4 button -->
+      <!-- player 14 button -->
       <div class="btn" data-toggle="modal" data-target="#id{{users['p14_element']}}">
         <!-- player img -->
         <div class="container">
@@ -276,10 +519,11 @@
         <!-- player info -->
         <div class="container">
           <p>{{ users['p14_web_name'] }}</p>
+          <div>{{ users['p14_event_points'] }}</div>
         </div>
       </div>
 
-      <!-- player 4 button -->
+      <!-- player 15 button -->
       <div class="btn" data-toggle="modal" data-target="#id{{users['p15_element']}}">
         <!-- player img -->
         <div class="container">
@@ -293,95 +537,81 @@
         <!-- player info -->
         <div class="container">
           <p>{{ users['p15_web_name'] }}</p>
+          <div>{{ users['p15_event_points'] }}</div>
         </div>
       </div>
 
     </div>
 
-</div><hr>
+  </div>
+  <hr>
 
-<!-- BOTTOM NAVIGATION #################################################### -->
-<div class=" container-fluid btn-toolbar d-flex justify-content-center">
-
+  <!-- BOTTOM NAVIGATION #################################################### -->
   <!-- CLUB ANALYSIS -->
-  <button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#analysis">Analysis</button>
-  <div id="analysis" class="collapse">
-    <div class="">
-      <h5>ASSITANT MANAGER'S NOTES</h5>
-      <!-- The Scout -->
-      <a href="https://www.premierleague.com/news/2178603">
-        <div class="container-fluid d-flex justify-content-center">
-          <h5 class="px-3 pt-3">FPL <i>Scout</i></h5>
-          <img style="width: 300px;" src="https://resources.premierleague.com/photos/2021/06/25/ea984f00-e553-4700-80a8-d13dbd5bfb5d/GettyImages-1319887209-1-.jpg?width=906&height=620" alt="">
-        </div>
-      </a>
-      <br>
-
-    </div>
-
-
+  <h5>ASSISTANT MANAGER'S NOTES</h5>
+  <div class="">
+    <button type="button" class="btn btn-warning" data-toggle="collapse" data-target="#demo1">Keepers</button>
+      <div id="demo1" class="collapse">
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th>name</th>
+              <th>form</th>
+              <th>game week pts</th>
+              <th>total pts</th>
+              <th>price</th>
+              <th>teams selected by %</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>{{ users.p1_web_name }}</td>
+              <td>{{ users.p1_points_per_game }}</td>
+              <td>{{ users.p1_total_points }}</td>
+              <td>{{ users.p1_now_cost }}</td>
+              <td>{{ users.p1_selected_by_percent }}</td>
+            </tr>
+            <tr>
+              <td>{{ position[0] }}</td>
+              <td>{{ position.form }}</td>
+              <td>{{ position.points_per_game }}</td>
+              <td>{{ position.total_points }}</td>
+              <td>{{ position.selected_by_percent }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    <button type="button" class="btn btn-danger" data-toggle="collapse" data-target="#demo2">defenders</button>
+      <div id="demo2" class="collapse">
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit,
+        sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+        quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+      </div>
+    <button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#demo3">midfielders</button>
+      <div id="demo3" class="collapse">
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit,
+        sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+        quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+      </div>
+    <button type="button" class="btn btn-success" data-toggle="collapse" data-target="#demo4">forwards</button>
+      <div id="demo4" class="collapse">
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit,
+        sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+        quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+      </div>
+    <!-- the scout -->
+    <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#demo5">fpl The Scout</button>
+      <div id="demo5" class="collapse">
+        <a href="https://www.premierleague.com/news/2178603">
+          <div class="container-fluid d-flex justify-content-center">
+            <h5 class="px-3 pt-3">FPL <i>Scout</i></h5>
+            <img style="width: 300px;" src="https://resources.premierleague.com/photos/2021/06/25/ea984f00-e553-4700-80a8-d13dbd5bfb5d/GettyImages-1319887209-1-.jpg?width=906&height=620" alt="">
+          </div>
+        </a>
+      </div>
+    <br>
   </div>
+  <br>
 
-  <!-- CLASSIC LEAGUE TABLE -->
-  <button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#league_table">Classic League</button>
-  <div id="league_table" class="collapse">
-    <table class="table">
-      <thead>
-        <tr>
-          <th>position</th>
-          <th>team name</th>
-          <th>points</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>{{users['team_name']}}</td>
-          <td></td>
-          <td></td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
 
-  <!-- CLASSIC LEAGUE AWARDS -->
-  <button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#league_awards">Manager Awards</button>
-  <div id="league_awards" class="collapse">
-    <!-- WEEKLY AWARDS -->
-    <h5>Weekly Awards</h5>
-    <div class="">
-      <div class="">
-        <div class="btn">Manager of the week Award</div>
-      </div>
-      <div class="">
-        <div class="btn">Flop of the week Award</div>
-      </div>
-      <div class="">
-        <div class="btn">Burnt Toast of the week Award</div>
-      </div>
-      <div class="">
-        <div class="btn">Best Transfer business of the week Award</div>
-      </div>
-    </div>
-
-    <!-- MONTHLY AWARDS -->
-    <h5>Monthly Awards</h5>
-    <div class="">
-      <div class="">
-        <div class="btn">Manager of the Month Award</div>
-      </div>
-      <div class="">
-        <div class="btn">Flop of the Month Award</div>
-      </div>
-      <div class="">
-        <div class="btn">Burnt Toast of the Month Award</div>
-      </div>
-      <div class="">
-        <div class="btn">Best Transfer business of the Month Award</div>
-      </div>
-    </div>
-
-  </div>
-
-</div><br>
-
-{% endblock %}
+  {% endblock %}
