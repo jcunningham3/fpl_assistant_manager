@@ -3,13 +3,13 @@ from models import connect_db, db, Users, Chat
 from forms import UserForm, ChatForm, LoginForm
 from methods import user, make_user_profile, all_footballers, user_personal_info, starting_vi, position1
 from jersey_selection import jersey_list
+import os
 
 app = Flask(__name__)
-
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///cap_db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_ECHO'] = True
-app.config['SECRET_KEY'] = 'crowBottom'
+app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'crowBottom')
 
 connect_db(app)
 
@@ -949,7 +949,7 @@ def user_route(user_id):
     users = Users.query.get_or_404(user_id)
 
     #update users team information
-    
+
 
     jerseys = jersey_list
     position = position1
