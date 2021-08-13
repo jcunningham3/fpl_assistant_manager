@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, IntegerField
+from wtforms import StringField, PasswordField, IntegerField, TextAreaField
 from wtforms.validators import InputRequired
 
 class UserForm(FlaskForm):
@@ -14,4 +14,4 @@ class LoginForm(FlaskForm):
 
 
 class ChatForm(FlaskForm):
-    text = StringField("Chat", validators=[InputRequired()])
+    text = StringField("Chat", validators = [InputRequired()])

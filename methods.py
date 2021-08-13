@@ -8,6 +8,13 @@ import requests
 # create a user's profile and import it into app.py for use
 user = {
     'team_name': '',
+    'fav_team': '',
+    'fav_team_ids': '',
+    'fav_team_logo': '',
+    'fav_team_colors': '',
+    'fav_team_jersey': '',
+    'fav_team_jersey_goal': '',
+    'classic_league_id': '',
     'overall_points': '',
     'gameweek_points': '',
     'gameweek_rank': '',
@@ -1080,44 +1087,246 @@ user = {
 }
 starting_vi = []
 position1 = []
+jersey_list = [
+    {
+        'id': 1,
+        'name': 'Arsenal',
+        'colors': '#EF0107',
+        'logo': '\static\img\logos\ars.png',
+        'jersey': '\static\img\jerseys\shirt_3-66_ars.webp',
+        'jersey_goal': '\static\img\jerseys\arsg.webp'
+    },
+    {
+        'id': 2,
+        'name': 'Aston Villa',
+        'colors': '#670E36',
+        'logo': '\static\img\logos\logo_avl.png',
+        'jersey': '\static\img\jerseys\shirt_7-66_avl.webp',
+        'jersey_goal': '\static\img\jerseys\avlg.webp'
+    },
+    {
+        'id': 3,
+        'name': 'Brentford',
+        'colors': '#e30613',
+        'logo': '\static\img\logos\bre.png',
+        'jersey': '\static\img\jerseys\bre.webp',
+        'jersey_goal': '\static\img\jerseys\breg.webp'
+    },
+    {
+        'id': 4,
+        'name': 'Brigton Hove Albion',
+        'colors': '#0057B8',
+        'logo': '\static\img\logos\bha.png',
+        'jersey': '\static\img\jerseys\shirt_36-66_bha.webp',
+        'jersey_goal': '\static\img\jerseys\shirt_90_1-66_bur_g.webp'
+    },
+    {
+        'id': 5,
+        'name': 'Burnley',
+        'colors': '#6C1D45',
+        'logo': '\static\img\logos\bur.png',
+        'jersey': '\static\img\jerseys\shirt_90-66_bur.webp',
+        'jersey_goal': '\static\img\jerseys\shirt_90_1-66_burg.webp'
+    },
+    {
+        'id': 6,
+        'name': 'Chelsea',
+        'colors': '#034694',
+        'logo': '\static\img\logos\che.png',
+        'jersey': '\static\img\jerseys\che.webp',
+        'jersey_goal': '\static\img\jerseys\cheg.webp',
+        'fixtures': [
+            {
+                'status': 'next',
+                'opponent': 'CRY',
+                'location': 'H'
+            },
+            {
+                'status': 'pending',
+                'opponent': 'ARS',
+                'location': 'A'
+            },
+            {
+                'status': 'pending',
+                'opponent': 'LIV',
+                'location': 'A'
+            },
+            {
+                'status': 'pending',
+                'opponent': 'AVL',
+                'location': 'H'
+            },
+            {
+                'status': 'pending',
+                'opponent': 'TOT',
+                'location': 'A'
+            },
+            {
+                'status': 'pending',
+                'opponent': 'MCY',
+                'location': 'H'
+            },
+            {
+                'status': 'pending',
+                'opponent': 'SOU',
+                'location': 'H'
+            },
+            {
+                'status': 'pending',
+                'opponent': 'BRE',
+                'location': 'A'
+            },
+            {
+                'status': 'pending',
+                'opponent': 'NOR',
+                'location': 'H'
+            },
+
+        ]
+    },
+    {
+        'id': 7,
+        'name': 'Crystal Palace',
+        'colors': '#1B458F',
+        'logo': '\static\img\logos\cry.png',
+        'jersey': '\static\img\jerseys\cry.webp',
+        'jersey_goal': '\static\img\jerseys\cryg.webp'
+    },
+    {
+        'id': 8,
+        'name': 'Everton',
+        'colors': '#003399',
+        'logo': '\static\img\logos\eve.png',
+        'jersey': '\static\img\jerseys\eve.webp',
+        'jersey_goal': '\static\img\jerseys\eveg.webp'
+    },
+    {
+        'id': 9,
+        'name': 'Leicester City',
+        'colors': '#003090',
+        'logo': '\static\img\logos\lei.png',
+        'jersey': '\static\img\jerseys\lei.webp',
+        'jersey_goal': '\static\img\jerseys\leig.webp'
+    },
+    {
+        'id': 10,
+        'name': 'Leeds United',
+        'colors': '#FFCD00',
+        'logo': '\static\img\logos\lee.png',
+        'jersey': '\static\img\jerseys\lee.webp',
+        'jersey_goal': '\static\img\jerseys\leeg.webp'
+    },
+    {
+        'id': 11,
+        'name': 'Liverpool',
+        'colors': '#C8102E',
+        'logo': '\static\img\logos\liv.png',
+        'jersey': '\static\img\jerseys\liv.webp',
+        'jersey_goal': '\static\img\jerseys\livg.webp'
+    },
+    {
+        'id': 12,
+        'name': 'Manchester City',
+        'colors': '#6CABDD',
+        'logo': '\static\img\logos\mcy.png',
+        'jersey': '\static\img\jerseys\mci.webp',
+        'jersey_goal': '\static\img\jerseys\mcig.webp'
+    },
+    {
+        'id': 13,
+        'name': 'Manchester United',
+        'colors': '#DA291C',
+        'logo': '\static\img\logos\mnu.png',
+        'jersey': '\static\img\jerseys\mun.webp',
+        'jersey_goal': '\static\img\jerseys\mung.webp'
+    },
+    {
+        'id': 14,
+        'name': 'Newcastle United',
+        'colors': '#41B6E6',
+        'logo': '\static\img\logos\new.png',
+        'jersey': '\static\img\jerseys\shirt_4-66_new.webp',
+        'jersey_goal': '\static\img\jerseys\newg.webp'
+    },
+    {
+        'id': 15,
+        'name': 'Norwich City',
+        'colors': '#00A650',
+        'logo': '\static\img\logos\nor.png',
+        'jersey': '\static\img\jerseys\nor.webp',
+        'jersey_goal': '\static\img\jerseys\norg.webp'
+    },
+    {
+        'id': 16,
+        'name': 'Southampton',
+        'colors': '#D71920',
+        'logo': '\static\img\logos\sou.png',
+        'jersey': '\static\img\jerseys\sou.webp',
+        'jersey_goal': '\static\img\jerseys\soug.webp'
+    },
+    {
+        'id': 17,
+        'name': 'Tottenham',
+        'colors': '#132257',
+        'logo': '\static\img\logos\spurs.png',
+        'jersey': '\static\img\jerseys\shirt_6-66_tot.webp',
+        'jersey_goal': '\static\img\jerseys\totg.webp'
+    },
+    {
+        'id': 18,
+        'name': 'Watford',
+        'colors': '#FBEE23',
+        'logo': '\static\img\logos\wat.png',
+        'jersey': '\static\img\jerseys\wat.webp',
+        'jersey_goal': '\static\img\jerseys\watg.webp'
+    },
+    {
+        'id': 19,
+        'name': 'West Ham United',
+        'colors': '#4F0E0E',
+        'logo': '\static\img\logos\whu.png',
+        'jersey': '\static\img\jerseys\whu.webp',
+        'jersey_goal': '\static\img\jerseys\whug.webp'
+    },
+    {
+        'id': 20,
+        'name': 'Wolverhampton',
+        'colors': '#F9B208',
+        'logo': '\static\img\logos\wol.png',
+        'jersey': '\static\img\jerseys\wol.webp',
+        'jersey_goal': '\static\img\jerseys\wolg.webp'
+    }
+]
 
 
-
-
-def users_11(email, pwd, team_id):
-    user = email
-    user_password = pwd
+def users_11(email, password, team_id):
     team_id = str(team_id)
-    s = requests.Session()
-   #request authorization from the app
-    headers = {
-       'authority': 'users.premierleague.com' ,
-       'cache-control': 'max-age=0' ,
-       'upgrade-insecure-requests': '1' ,
-       'origin': 'https://fantasy.premierleague.com' ,
-       'content-type': 'application/x-www-form-urlencoded' ,
-       'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.116 Safari/537.36' ,
-       'accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9' ,
-       'sec-fetch-site': 'same-site' ,
-       'sec-fetch-mode': 'navigate' ,
-       'sec-fetch-user': '?1' ,
-       'sec-fetch-dest': 'document' ,
-       'referer': 'https://fantasy.premierleague.com/my-team' ,
-       'accept-language': 'en-US,en;q=0.9,he;q=0.8' ,
-    }
-    data = {
-        "login": user,
-        "password": user_password,
-        "app": "plfpl-web",
-        "redirect_uri": "https://fantasy.premierleague.com/"
-    }
-    url = "https://users.premierleague.com/accounts/login/"
-    res = s.post(url, data = data,  headers = headers)
+    # put the cookies received in session to be remembered
+    session = requests.session()
 
-    team_url = "https://fantasy.premierleague.com/api/my-team/" + team_id + "/"
-    res = s.get(team_url)
+    # url needed to make the post request
+    url = 'https://users.premierleague.com/accounts/login/'
+
+    # data needed for the post request
+    payload = {
+     'password': password,
+     'login': email,
+     'redirect_uri': 'https://fantasy.premierleague.com/a/login',
+     'app': 'plfpl-web'
+    }
+    session.post(url, data=payload)
+
+    # Get response sent with authorization cookies
+    res = session.get('https://fantasy.premierleague.com/api/my-team/' + team_id + '/')
+
+    # setting the response to a var called 'data' and making the response json
     data = res.json()
+
     starting_vi.append(data['picks'])
+    #starting_vi = data['picks']
+
+    #return data['picks']
+
 def all_footballers():
     res = requests.get('https://fantasy.premierleague.com/api/bootstrap-static/')
     data = res.json()
@@ -1197,8 +1406,6 @@ def all_footballers():
                 position1.append("No Suggestions at this time")
 
 
-
-
 def user_personal_info(team_id):
     team_id = str(team_id)
     res = requests.get('https://fantasy.premierleague.com/api/entry/' + team_id + '/')
@@ -1206,15 +1413,27 @@ def user_personal_info(team_id):
 
     # disect get response
     user['team_name'] = data['name']
+    user['fav_team'] = data['leagues']['classic'][0]["name"]
+    user['fav_team_id'] = data['leagues']['classic'][0]["id"]
     user['overall_points'] = data['summary_overall_points']
     user['gameweek_points'] = data['summary_event_points']
     user['gameweek_rank'] = data['summary_event_rank']
     user['overall_rank'] = data['summary_overall_rank']
-    user['classic_league_name'] = data['leagues']['classic'][4]['name']
+    user['classic_league_id'] = data['leagues']['classic'][4]["id"]
+    user['classic_league_name'] = data['leagues']['classic'][4]["name"]
     user['classic_league_rank'] = data['leagues']['classic'][4]['entry_rank']
     user['classic_league_rank_previous'] = data['leagues']['classic'][4]['entry_last_rank']
-def classic_league_standings(classic_league_id):
-    id = str(classic_league_id)
+
+    for x in jersey_list:
+        if x['id'] == user['fav_team_id']:
+            user['fav_team_logo'] = x['logo']
+            user['fav_team_colors'] = x['colors']
+            user['fav_team_jersey'] = x['jersey']
+            user['fav_team_jersey_goal'] = x['jersey_goal']
+
+
+def classic_league_standings(cl_id):
+    id = str(cl_id)
     res = requests.get('https://fantasy.premierleague.com/api/leagues-classic/' + id + '/standings/')
     data = res.json()
     return data
@@ -1355,7 +1574,10 @@ def make_user_profile(email, password, team_id):
     all_footballers()
 
 # run method
-#make_user_profile('cunheez3@gmail.com', 'Tottenham7', 307976)
-#make_user_profile('jan6person@hotmail.com', 'Winter2011', 709137)
+make_user_profile('cunheez3@gmail.com', 'Tottenham7', 307976)
+# make_user_profile('jan6person@hotmail.com', 'Winter2011', 709137)
+#make_user_profile('fplexampleman@gmail.com', 'Tottenham7', 1583773)
+# 'fplexampleman@gmail.com', 'Tottenham7', 1583773
 # classic league id -- 71437
-#print(position1[0])
+print(user['fav_team'])
+print(user['fav_team_id'])

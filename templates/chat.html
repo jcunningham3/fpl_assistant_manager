@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% block title %}{% endblock %}
+{% block content %}
+
+<style>
+  img {
+    width: 50%;
+  }
+</style>
+
+<h2>{{ player.classic_league_name }} Chat</h2>
+<!-- Chat Area -->
+<div class="w3-container w3-grey">
+  {% for talk in league_chat %}
+  <div class="container">
+
+    <div class="w3-container">
+      <div class="w3-tiny"><b>{{talk.date}}</b></div>
+      <div class="w3-cell w3-border w3-round w3-center w3-white">
+        <img src="{{talk.users.fav_team_logo}}" alt="img">
+      </div>
+      <div class="w3-cell w3-padding" style="color:{{talk.users.fav_team_colors}};"><b>{{talk.users.team_name}}</b></div>
+      <div class="w3-cell w3-padding">{{talk.text}}</div>
+    </div>
+  </div><br>
+  {% endfor %}
+</div>
+<br>
+
+<!-- chat form -->
+<div class="w3-bar-item w3-border w3-round">
+  <form action="/league/chat/{{player.id}}" method="post">
+    {{ form.hidden_tag() }}
+
+    {% for field in form
+      if field.widget.input_type != 'hidden' %}
+      <div class="w3-cell form-row">
+
+        <div class="w3-cell w3-padding">
+            {{ field }}
+        </div>
+
+        {% for error in field.errors %}
+        <div class="">
+          {{ error }}
+        </div>
+        {% endfor %}
+
+      </div>
+      {% endfor %}
+      <br>
+      <div class="w3-cell w3-padding">
+        <button class="btn btn-primary w3-padding" type="submit">chat</button>
+      </div>
+  </form>
+
+</div>
+
+
+{% endblock %}

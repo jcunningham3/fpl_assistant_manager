@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% block title %}{% endblock %}
+{% block content %}
+
+<!-- managers in the league -->
+<div class="">
+  <h3>{{ classic_league['league']['name'] }} Managers</h3>
+  <hr>
+  {% for team in classic_league['new_entries']['results'] %}
+  <div class="">
+    <h5 class="w3-cell"><b>{{ team['entry_name'] }}</b></h5>
+    <h5 class="w3-cell w3-small w3-padding">{{ team['player_first_name'] }} {{ team['player_last_name'] }}</h5>
+  </div>
+  {% endfor %}
+</div>
+<hr>
+
+<!-- league table -->
+{% if classic_league['standings']['results'] == [] %}
+<div class="">
+  <h3>League Table will be updated as soon as League play starts</h3>
+</div>
+{% else %}
+<table class="table">
+    <thead>
+      <tr>
+        <th>Position</th>
+        <th>Name</th>
+        <th>Team</th>
+        <th>Points</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  {% endif %}
+
+{% endblock %}

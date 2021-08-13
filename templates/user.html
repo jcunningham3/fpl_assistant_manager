@@ -1,617 +1,1101 @@
 {% extends 'base.html' %}
-{% block title %}{{ users['team_name'] }}{% endblock %}
+{% block title %}{{ player.team_name }}{% endblock %}
 {% block content %}
 <style>
   img {
     width: 40px;
   }
 
-  .carousel-inner img {
-    width: 100%;
-    height: 100%;
-  }
+
 </style>
 
-<!-- TEAM NAME AND PITCH VIEW -->
-<div class="container">
+<!-- LARGE SCREEN CONTENT -->
+<div class="w3-container w3-hide-medium w3-hide-small">
 
-  <!-- Header on Large Screens -->
-  <div class="w3-hide-small w3-hide-medium" style="margin-left:110px;">
-    <h3 class="w3-margin">{{ users['team_name'] }}</h3>
-    <div class="w3-cell w3-padding"><b>Total Points:</b> {{ users['overall_points'] }}</div>
-    <div class="w3-cell w3-padding"><b>Overall Rank:</b> {{ users['overall_rank'] }}</div>
-    <div class="w3-cell w3-padding"><b>Gameweek Points:</b> {{ users['gameweek_points'] }}</div>
-  </div>
-  <!-- Header on medium and small Screens -->
-  <div class="w3-hide-large">
-    <h3 class="w3-margin">{{ users['team_name'] }}</h3>
-    <div class="w3-cell w3-padding"><b>Total Points:</b> {{ users['overall_points'] }}</div>
-    <div class="w3-cell w3-padding"><b>Overall Rank:</b> {{ users['overall_rank'] }}</div>
-    <div class="w3-cell w3-padding"><b>Gameweek Points:</b> {{ users['gameweek_points'] }}</div>
-  </div>
-
-  <!-- PITCH VIEW LARGE AND SMALL########################################## -->
+  <!-- TEAM STATS AND PITCH VIEW -->
   <div class="container">
 
+    <!-- team name and basic stats -->
+    <div class="container">
+      <h3 class="w3-margin">{{ player.team_name }}</h3>
+      <div class="w3-cell w3-padding"><b>Total Points:</b> {{ player.overall_points }}</div>
+      <div class="w3-cell w3-padding"><b>Overall Rank:</b> {{ player.overall_rank }}</div>
+      <div class="w3-cell w3-padding"><b>Gameweek Points:</b> {{ player.gameweek_points }}</div>
+    </div>
+
     <!-- pitch view -- large screens-->
-    <div class="w3-display-container w3-center w3-hide-small w3-hide-medium">
-      <img src="\static\img\pitch1.png" alt="" style="width:80%; height: 560px;">
-      <div class="w3-display-topmiddle" style="width: 100%;">
-        <!-- keeper -->
-        <div class="btn-toolbar d-flex justify-content-center pt-3">
-          <!-- player button -->
-          <div class="btn" data-toggle="modal" data-target="#id{{users['p1_element']}}">
-            <!-- player img -->
-            <div class="container">
-              {% for jersey in jerseys %}
-              {% if users['p1_team'] == jersey['id'] %}
-              <!-- jersey -->
-              <img src="{{jersey['jersey_goal']}}" alt="img">
-              {% endif %}
-              {% endfor %}
-            </div>
-            <!-- player info -->
-            <div class="container">
-              <p>{{ users['p1_web_name'] }}</p>
-              <p>{{ users['p1_event_points'] }}</p>
+    <div class="w3-display-container w3-center">
+
+      <!-- background image -->
+      <img src="\static\img\pitch1.png" alt="" style="width:90%; height:485px;">
+
+      <!-- starting xi container -->
+      <div class="w3-display-topmiddle" style="width:100%;">
+
+        <!-- keepers -->
+        <div class="w3-container" style="margin-top: 30px;">
+
+          <!-- keeper (p1)-->
+          <div class="w3-btn">
+            <!-- player button -->
+            <div class="btn" data-toggle="modal" data-target="#id{{player.p1_element}}">
+              <!-- player img -->
+              <div class="container">
+
+                <!-- jersey -->
+                {% for jersey in jerseys %}
+                {% if player.p2_team == jersey['id'] %}
+                <!-- jersey -->
+                <img src="{{jersey['jersey_goal']}}" alt="img">
+                {% endif %}
+                {% endfor %}
+
+              </div>
+              <!-- player info -->
+              <div class="container">
+                <p>{{ player.p1_web_name }}</p>
+
+              </div>
             </div>
           </div>
+
         </div>
+
         <!-- defenders -->
-        <div class="btn-toolbar d-flex justify-content-center">
-          <!-- player 2 button -->
-          <div class="btn" data-toggle="modal" data-target="#id{{users['p2_element']}}">
-            <!-- player img -->
-            <div class="container">
-              {% for jersey in jerseys %}
-              {% if users['p2_team'] == jersey['id'] %}
-              <!-- jersey -->
-              <img src="{{jersey['jersey']}}" alt="img">
-              {% endif %}
-              {% endfor %}
-            </div>
-            <!-- player info -->
-            <div class="container">
-              <p>{{ users['p2_web_name'] }}</p>
-              <p>{{ users['p2_event_points'] }}</p>
-            </div>
-          </div>
+        <div class="w3-container">
 
-          <!-- player 3 button -->
-          <div class="btn" data-toggle="modal" data-target="#id{{users['p3_element']}}">
-            <!-- player img -->
-            <div class="container">
-              {% for jersey in jerseys %}
-              {% if users['p3_team'] == jersey['id'] %}
-              <!-- jersey -->
-              <img src="{{jersey['jersey']}}" alt="img">
-              {% endif %}
-              {% endfor %}
-            </div>
-            <!-- player info -->
-            <div class="container">
-              <p>{{ users['p3_web_name'] }}</p>
-              <p>{{ users['p3_event_points'] }}</p>
-            </div>
-          </div>
+          <!-- defender (p2) -->
+          {% if player.p2_element_type == 2 %}
+          <div class="w3-btn">
+            <!-- player button -->
+            <div class="btn" data-toggle="modal" data-target="#id{{player.p2_element}}">
+              <!-- player img -->
+              <div class="container">
+                {% for jersey in jerseys %}
+                {% if player.p2_team == jersey['id'] %}
+                <!-- jersey -->
+                <img src="{{jersey['jersey']}}" alt="img">
+                {% endif %}
+                {% endfor %}
+              </div>
+              <!-- player info -->
+              <div class="container">
+                <p>{{ player.p2_web_name }}</p>
 
-          <!-- player 4 button -->
-          <div class="btn" data-toggle="modal" data-target="#id{{users['p4_element']}}">
-            <!-- player img -->
-            <div class="container">
-              {% for jersey in jerseys %}
-              {% if users['p4_team'] == jersey['id'] %}
-              <!-- jersey -->
-              <img src="{{jersey['jersey']}}" alt="img">
-              {% endif %}
-              {% endfor %}
-            </div>
-            <!-- player info -->
-            <div class="container">
-              <p>{{ users['p4_web_name'] }}</p>
-              <p>{{ users['p4_event_points'] }}</p>
+              </div>
             </div>
           </div>
+          {% endif %}
 
-          <!-- player 4 button -->
-          <div class="btn" data-toggle="modal" data-target="#id{{users['p5_element']}}">
-            <!-- player img -->
-            <div class="container">
-              {% for jersey in jerseys %}
-              {% if users['p5_team'] == jersey['id'] %}
-              <!-- jersey -->
-              <img src="{{jersey['jersey']}}" alt="img">
-              {% endif %}
-              {% endfor %}
-            </div>
-            <!-- player info -->
-            <div class="container">
-              <p>{{ users['p5_web_name'] }}</p>
-              <p>{{ users['p5_event_points'] }}</p>
-            </div>
-          </div>
+          <!-- defender (p3) -->
+          {% if player.p3_element_type == 2 %}
+          <div class="w3-btn">
+            <!-- player button -->
+            <div class="btn" data-toggle="modal" data-target="#id{{player.p3_element}}">
+              <!-- player img -->
+              <div class="container">
+                {% for jersey in jerseys %}
+                {% if player.p3_team == jersey['id'] %}
+                <!-- jersey -->
+                <img src="{{jersey['jersey']}}" alt="img">
+                {% endif %}
+                {% endfor %}
+              </div>
+              <!-- player info -->
+              <div class="container">
+                <p>{{ player.p3_web_name }}</p>
 
-        </div>
-        <!-- midfielders -->
-        <div class="btn-toolbar d-flex justify-content-center">
-          <!-- player 2 button -->
-          <div class="btn" data-toggle="modal" data-target="#id{{users['p6_element']}}">
-            <!-- player img -->
-            <div class="container">
-              {% for jersey in jerseys %}
-              {% if users['p6_team'] == jersey['id'] %}
-              <!-- jersey -->
-              <img src="{{jersey['jersey']}}" alt="img">
-              {% endif %}
-              {% endfor %}
-            </div>
-            <!-- player info -->
-            <div class="container">
-              <p>{{ users['p6_web_name'] }}</p>
-              <p>{{ users['p6_event_points'] }}</p>
+              </div>
             </div>
           </div>
+          {% endif %}
 
-          <!-- player 3 button -->
-          <div class="btn" data-toggle="modal" data-target="#id{{users['p7_element']}}">
-            <!-- player img -->
-            <div class="container">
-              {% for jersey in jerseys %}
-              {% if users['p7_team'] == jersey['id'] %}
-              <!-- jersey -->
-              <img src="{{jersey['jersey']}}" alt="img">
-              {% endif %}
-              {% endfor %}
-            </div>
-            <!-- player info -->
-            <div class="container">
-              <p>{{ users['p7_web_name'] }}</p>
-              <p>{{ users['p7_event_points'] }}</p>
-            </div>
-          </div>
+          <!-- defender (p4) -->
+          {% if player.p4_element_type == 2 %}
+          <div class="w3-btn">
+            <!-- player button -->
+            <div class="btn" data-toggle="modal" data-target="#id{{player.p4_element}}">
+              <!-- player img -->
+              <div class="container">
+                {% for jersey in jerseys %}
+                {% if player.p4_team == jersey['id'] %}
+                <!-- jersey -->
+                <img src="{{jersey['jersey']}}" alt="img">
+                {% endif %}
+                {% endfor %}
+              </div>
+              <!-- player info -->
+              <div class="container">
+                <p>{{ player.p4_web_name }}</p>
 
-          <!-- player 4 button -->
-          <div class="btn" data-toggle="modal" data-target="#id{{users['p8_element']}}">
-            <!-- player img -->
-            <div class="container">
-              {% for jersey in jerseys %}
-              {% if users['p8_team'] == jersey['id'] %}
-              <!-- jersey -->
-              <img src="{{jersey['jersey']}}" alt="img">
-              {% endif %}
-              {% endfor %}
-            </div>
-            <!-- player info -->
-            <div class="container">
-              <p>{{ users['p8_web_name'] }}</p>
-              <p>{{ users['p8_event_points'] }}</p>
+              </div>
             </div>
           </div>
+          {% endif %}
 
-          <!-- player 4 button -->
-          <div class="btn" data-toggle="modal" data-target="#id{{users['p9_element']}}">
-            <!-- player img -->
-            <div class="container">
-              {% for jersey in jerseys %}
-              {% if users['p9_team'] == jersey['id'] %}
-              <!-- jersey -->
-              <img src="{{jersey['jersey']}}" alt="img">
-              {% endif %}
-              {% endfor %}
-            </div>
-            <!-- player info -->
-            <div class="container">
-              <p>{{ users['p9_web_name'] }}</p>
-              <p>{{ users['p9_event_points'] }}</p>
+          <!-- defender (p5) -->
+          {% if player.p5_element_type == 2 %}
+          <div class="w3-btn">
+            <!-- player button -->
+            <div class="btn" data-toggle="modal" data-target="#id{{player.p5_element}}">
+              <!-- player img -->
+              <div class="container">
+                {% for jersey in jerseys %}
+                {% if player.p5_team == jersey['id'] %}
+                <!-- jersey -->
+                <img src="{{jersey['jersey']}}" alt="img">
+                {% endif %}
+                {% endfor %}
+              </div>
+              <!-- player info -->
+              <div class="container">
+                <p>{{ player.p5_web_name }}</p>
+
+              </div>
             </div>
           </div>
+          {% endif %}
+
+          <!-- defender (p6) -->
+          {% if player.p6_element_type == 2 %}
+          <div class="w3-btn">
+            <!-- player button -->
+            <div class="btn" data-toggle="modal" data-target="#id{{player.p6_element}}">
+              <!-- player img -->
+              <div class="container">
+                {% for jersey in jerseys %}
+                {% if player.p6_team == jersey['id'] %}
+                <!-- jersey -->
+                <img src="{{jersey['jersey']}}" alt="img">
+                {% endif %}
+                {% endfor %}
+              </div>
+              <!-- player info -->
+              <div class="container">
+                <p>{{ player.p6_web_name }}</p>
+
+              </div>
+            </div>
+          </div>
+          {% endif %}
 
         </div>
+
+        <!-- midfielders-->
+        <div class="w3-container">
+
+          <!-- midfielder (p5)-->
+          {% if player.p5_element_type == 3 %}
+          <div class="w3-btn">
+            <!-- player button -->
+            <div class="btn" data-toggle="modal" data-target="#id{{player.p5_element}}">
+              <!-- player img -->
+              <div class="container">
+                {% for jersey in jerseys %}
+                {% if player.p5_team == jersey['id'] %}
+                <!-- jersey -->
+                <img src="{{jersey['jersey']}}" alt="img">
+                {% endif %}
+                {% endfor %}
+              </div>
+              <!-- player info -->
+              <div class="container">
+                <p>{{ player.p5_web_name }}</p>
+
+              </div>
+            </div>
+          </div>
+          {% endif %}
+
+          <!-- midfielder (p6)-->
+          {% if player.p6_element_type == 3 %}
+          <div class="w3-btn">
+            <!-- player button -->
+            <div class="btn" data-toggle="modal" data-target="#id{{player.p6_element}}">
+              <!-- player img -->
+              <div class="container">
+                {% for jersey in jerseys %}
+                {% if player.p6_team == jersey['id'] %}
+                <!-- jersey -->
+                <img src="{{jersey['jersey']}}" alt="img">
+                {% endif %}
+                {% endfor %}
+              </div>
+              <!-- player info -->
+              <div class="container">
+                <p>{{ player.p6_web_name }}</p>
+
+              </div>
+            </div>
+          </div>
+          {% endif %}
+
+          <!-- midfielder (p7)-->
+          {% if player.p7_element_type == 3 %}
+          <div class="w3-btn">
+            <!-- player button -->
+            <div class="btn" data-toggle="modal" data-target="#id{{player.p7_element}}">
+              <!-- player img -->
+              <div class="container">
+                {% for jersey in jerseys %}
+                {% if player.p7_team == jersey['id'] %}
+                <!-- jersey -->
+                <img src="{{jersey['jersey']}}" alt="img">
+                {% endif %}
+                {% endfor %}
+              </div>
+              <!-- player info -->
+              <div class="container">
+                <p>{{ player.p7_web_name }}</p>
+
+              </div>
+            </div>
+          </div>
+          {% endif %}
+
+          <!-- midfielder (p8)-->
+          {% if player.p8_element_type == 3 %}
+          <div class="w3-btn">
+            <!-- player button -->
+            <div class="btn" data-toggle="modal" data-target="#id{{player.p8_element}}">
+              <!-- player img -->
+              <div class="container">
+                {% for jersey in jerseys %}
+                {% if player.p8_team == jersey['id'] %}
+                <!-- jersey -->
+                <img src="{{jersey['jersey']}}" alt="img">
+                {% endif %}
+                {% endfor %}
+              </div>
+              <!-- player info -->
+              <div class="container">
+                <p>{{ player.p8_web_name }}</p>
+
+              </div>
+            </div>
+          </div>
+          {% endif %}
+
+          <!-- midfielder (p9)-->
+          {% if player.p9_element_type == 3 %}
+          <div class="w3-btn">
+            <!-- player button -->
+            <div class="btn" data-toggle="modal" data-target="#id{{player.p9_element}}">
+              <!-- player img -->
+              <div class="container">
+                {% for jersey in jerseys %}
+                {% if player.p9_team == jersey['id'] %}
+                <!-- jersey -->
+                <img src="{{jersey['jersey']}}" alt="img">
+                {% endif %}
+                {% endfor %}
+              </div>
+              <!-- player info -->
+              <div class="container">
+                <p>{{ player.p9_web_name }}</p>
+
+              </div>
+            </div>
+          </div>
+          {% endif %}
+
+          <!-- midfielder (p10)-->
+          {% if player.p10_element_type == 3 %}
+          <div class="w3-btn">
+            <!-- player button -->
+            <div class="btn" data-toggle="modal" data-target="#id{{player.p10_element}}">
+              <!-- player img -->
+              <div class="container">
+                {% for jersey in jerseys %}
+                {% if player.p10_team == jersey['id'] %}
+                <!-- jersey -->
+                <img src="{{jersey['jersey']}}" alt="img">
+                {% endif %}
+                {% endfor %}
+              </div>
+              <!-- player info -->
+              <div class="container">
+                <p>{{ player.p10_web_name }}</p>
+
+              </div>
+            </div>
+          </div>
+          {% endif %}
+
+          <!-- midfielder (p11)-->
+          {% if player.p11_element_type == 3 %}
+          <div class="w3-btn">
+            <!-- player button -->
+            <div class="btn" data-toggle="modal" data-target="#id{{player.p11_element}}">
+              <!-- player img -->
+              <div class="container">
+                {% for jersey in jerseys %}
+                {% if player.p11_team == jersey['id'] %}
+                <!-- jersey -->
+                <img src="{{jersey['jersey']}}" alt="img">
+                {% endif %}
+                {% endfor %}
+              </div>
+              <!-- player info -->
+              <div class="container">
+                <p>{{ player.p11_web_name }}</p>
+
+              </div>
+            </div>
+          </div>
+          {% endif %}
+
+        </div>
+
         <!-- forwards -->
-        <div class="btn-toolbar d-flex justify-content-center">
-          <!-- player 2 button -->
-          <div class="btn" data-toggle="modal" data-target="#id{{users['p10_element']}}">
-            <!-- player img -->
-            <div class="container">
-              {% for jersey in jerseys %}
-              {% if users['p10_team'] == jersey['id'] %}
-              <!-- jersey -->
-              <img src="{{jersey['jersey']}}" alt="img">
-              {% endif %}
-              {% endfor %}
-            </div>
-            <!-- player info -->
-            <div class="container">
-              <p>{{ users['p10_web_name'] }}</p>
-              <p>{{ users['p10_event_points'] }}</p>
+        <div class="w3-container">
+
+          <!-- forward (p9)-->
+          {% if player.p9_element_type == 4 %}
+          <div class="w3-btn">
+            <!-- player button -->
+            <div class="btn" data-toggle="modal" data-target="#id{{player.p9_element}}">
+              <!-- player img -->
+              <div class="container">
+                {% for jersey in jerseys %}
+                {% if player.p9_team == jersey['id'] %}
+                <!-- jersey -->
+                <img src="{{jersey['jersey']}}" alt="img">
+                {% endif %}
+                {% endfor %}
+              </div>
+              <!-- player info -->
+              <div class="container">
+                <p>{{ player.p9_web_name }}</p>
+
+              </div>
             </div>
           </div>
-
-          <!-- player 3 button -->
-          <div class="btn" data-toggle="modal" data-target="#id{{users['p11_element']}}">
-            <!-- player img -->
-            <div class="container">
-              {% for jersey in jerseys %}
-              {% if users['p11_team'] == jersey['id'] %}
-              <!-- jersey -->
-              <img src="{{jersey['jersey']}}" alt="img">
-              {% endif %}
-              {% endfor %}
-            </div>
-            <!-- player info -->
-            <div class="container">
-              <p>{{ users['p11_web_name'] }}</p>
-              <p>{{ users['p11_event_points'] }}</p>
-            </div>
-          </div>
-
-        </div>
-
-      </div>
-    </div>
-
-    <!-- pitch view -- medium/small screens-->
-    <div class="w3-display-container w3-center w3-hide-large">
-      <img src="\static\img\pitch1.png" alt="" style="width:100%; height:550px;;">
-      <div class="w3-display-topmiddle" style="width: 100%;">
-        <!-- keeper -->
-        <div class="btn-toolbar d-flex justify-content-center pt-3">
-          <!-- player button -->
-          <div class="btn" data-toggle="modal" data-target="#id{{users['p1_element']}}">
-            <!-- player img -->
-            <div class="container">
-              {% for jersey in jerseys %}
-              {% if users['p1_team'] == jersey['id'] %}
-              <!-- jersey -->
-              <img src="{{jersey['jersey_goal']}}" alt="img">
-              {% endif %}
-              {% endfor %}
-            </div>
-            <!-- player info -->
-            <div class="container">
-              <p>{{ users['p1_web_name'] }}</p>
-              <p>{{ users['p1_event_points'] }}</p>
-            </div>
-          </div>
-        </div>
-        <!-- defenders -->
-        <div class="btn-toolbar d-flex justify-content-center">
-          <!-- player 2 button -->
-          <div class="btn" data-toggle="modal" data-target="#id{{users['p2_element']}}">
-            <!-- player img -->
-            <div class="container">
-              {% for jersey in jerseys %}
-              {% if users['p2_team'] == jersey['id'] %}
-              <!-- jersey -->
-              <img src="{{jersey['jersey']}}" alt="img">
-              {% endif %}
-              {% endfor %}
-            </div>
-            <!-- player info -->
-            <div class="container">
-              <p>{{ users['p2_web_name'] }}</p>
-              <p>{{ users['p2_event_points'] }}</p>
-            </div>
-          </div>
-
-          <!-- player 3 button -->
-          <div class="btn" data-toggle="modal" data-target="#id{{users['p3_element']}}">
-            <!-- player img -->
-            <div class="container">
-              {% for jersey in jerseys %}
-              {% if users['p3_team'] == jersey['id'] %}
-              <!-- jersey -->
-              <img src="{{jersey['jersey']}}" alt="img">
-              {% endif %}
-              {% endfor %}
-            </div>
-            <!-- player info -->
-            <div class="container">
-              <p>{{ users['p3_web_name'] }}</p>
-              <p>{{ users['p3_event_points'] }}</p>
-            </div>
-          </div>
-
-          <!-- player 4 button -->
-          <div class="btn" data-toggle="modal" data-target="#id{{users['p4_element']}}">
-            <!-- player img -->
-            <div class="container">
-              {% for jersey in jerseys %}
-              {% if users['p4_team'] == jersey['id'] %}
-              <!-- jersey -->
-              <img src="{{jersey['jersey']}}" alt="img">
-              {% endif %}
-              {% endfor %}
-            </div>
-            <!-- player info -->
-            <div class="container">
-              <p>{{ users['p4_web_name'] }}</p>
-              <p>{{ users['p4_event_points'] }}</p>
-            </div>
-          </div>
-
-          <!-- player 4 button -->
-          <div class="btn" data-toggle="modal" data-target="#id{{users['p5_element']}}">
-            <!-- player img -->
-            <div class="container">
-              {% for jersey in jerseys %}
-              {% if users['p5_team'] == jersey['id'] %}
-              <!-- jersey -->
-              <img src="{{jersey['jersey']}}" alt="img">
-              {% endif %}
-              {% endfor %}
-            </div>
-            <!-- player info -->
-            <div class="container">
-              <p>{{ users['p5_web_name'] }}</p>
-              <p>{{ users['p5_event_points'] }}</p>
-            </div>
-          </div>
-
-        </div>
-        <!-- midfielders -->
-        <div class="btn-toolbar d-flex justify-content-center">
-          <!-- player 2 button -->
-          <div class="btn" data-toggle="modal" data-target="#id{{users['p6_element']}}">
-            <!-- player img -->
-            <div class="container">
-              {% for jersey in jerseys %}
-              {% if users['p6_team'] == jersey['id'] %}
-              <!-- jersey -->
-              <img src="{{jersey['jersey']}}" alt="img">
-              {% endif %}
-              {% endfor %}
-            </div>
-            <!-- player info -->
-            <div class="container">
-              <p>{{ users['p6_web_name'] }}</p>
-              <p>{{ users['p6_event_points'] }}</p>
-            </div>
-          </div>
-
-          <!-- player 3 button -->
-          <div class="btn" data-toggle="modal" data-target="#id{{users['p7_element']}}">
-            <!-- player img -->
-            <div class="container">
-              {% for jersey in jerseys %}
-              {% if users['p7_team'] == jersey['id'] %}
-              <!-- jersey -->
-              <img src="{{jersey['jersey']}}" alt="img">
-              {% endif %}
-              {% endfor %}
-            </div>
-            <!-- player info -->
-            <div class="container">
-              <p>{{ users['p7_web_name'] }}</p>
-              <p>{{ users['p6_event_points'] }}</p>
-            </div>
-          </div>
-
-          <!-- player 4 button -->
-          <div class="btn" data-toggle="modal" data-target="#id{{users['p8_element']}}">
-            <!-- player img -->
-            <div class="container">
-              {% for jersey in jerseys %}
-              {% if users['p8_team'] == jersey['id'] %}
-              <!-- jersey -->
-              <img src="{{jersey['jersey']}}" alt="img">
-              {% endif %}
-              {% endfor %}
-            </div>
-            <!-- player info -->
-            <div class="container">
-              <p>{{ users['p8_web_name'] }}</p>
-              <p>{{ users['p8_event_points'] }}</p>
-            </div>
-          </div>
-
-          <!-- player 4 button -->
-          <div class="btn" data-toggle="modal" data-target="#id{{users['p9_element']}}">
-            <!-- player img -->
-            <div class="container">
-              {% for jersey in jerseys %}
-              {% if users['p9_team'] == jersey['id'] %}
-              <!-- jersey -->
-              <img src="{{jersey['jersey']}}" alt="img">
-              {% endif %}
-              {% endfor %}
-            </div>
-            <!-- player info -->
-            <div class="container">
-              <p>{{ users['p9_web_name'] }}</p>
-              <p>{{ users['p9_event_points'] }}</p>
-            </div>
-          </div>
-
-        </div>
-        <!-- forwards -->
-        <div class="btn-toolbar d-flex justify-content-center">
-          <!-- player 2 button -->
-          <div class="btn" data-toggle="modal" data-target="#id{{users['p10_element']}}">
-            <!-- player img -->
-            <div class="container">
-              {% for jersey in jerseys %}
-              {% if users['p10_team'] == jersey['id'] %}
-              <!-- jersey -->
-              <img src="{{jersey['jersey']}}" alt="img">
-              {% endif %}
-              {% endfor %}
-            </div>
-            <!-- player info -->
-            <div class="container">
-              <p>{{ users['p10_web_name'] }}</p>
-              <p>{{ users['p10_event_points'] }}</p>
-            </div>
-          </div>
-
-          <!-- player 3 button -->
-          <div class="btn" data-toggle="modal" data-target="#id{{users['p11_element']}}">
-            <!-- player img -->
-            <div class="container">
-              {% for jersey in jerseys %}
-              {% if users['p11_team'] == jersey['id'] %}
-              <!-- jersey -->
-              <img src="{{jersey['jersey']}}" alt="img">
-              {% endif %}
-              {% endfor %}
-            </div>
-            <!-- player info -->
-            <div class="container">
-              <p>{{ users['p11_web_name'] }}</p>
-              <p>{{ users['p11_event_points'] }}</p>
-            </div>
-          </div>
-
-        </div>
-
-      </div>
-    </div>
-
-    <!-- subs -->
-    <div class="btn-toolbar d-flex justify-content-center">
-      <!-- player 12 button -->
-      <div class="btn" data-toggle="modal" data-target="#id{{users['p12_element']}}">
-        <!-- player img -->
-        <div class="container">
-          {% for jersey in jerseys %}
-          {% if users['p12_team'] == jersey['id'] %}
-          <!-- jersey -->
-          <img src="{{jersey['jersey']}}" alt="img">
           {% endif %}
-          {% endfor %}
+
+          <!-- forward (p10)-->
+          {% if player.p10_element_type == 4 %}
+          <div class="w3-btn">
+            <!-- player button -->
+            <div class="btn" data-toggle="modal" data-target="#id{{player.p10_element}}">
+              <!-- player img -->
+              <div class="container">
+                {% for jersey in jerseys %}
+                {% if player.p10_team == jersey['id'] %}
+                <!-- jersey -->
+                <img src="{{jersey['jersey']}}" alt="img">
+                {% endif %}
+                {% endfor %}
+              </div>
+              <!-- player info -->
+              <div class="container">
+                <p>{{ player.p10_web_name }}</p>
+
+              </div>
+            </div>
+          </div>
+          {% endif %}
+
+          <!-- forward (p11)-->
+          {% if player.p11_element_type == 4 %}
+          <div class="w3-btn">
+            <!-- player button -->
+            <div class="btn" data-toggle="modal" data-target="#id{{player.p11_element}}">
+              <!-- player img -->
+              <div class="container">
+                {% for jersey in jerseys %}
+                {% if player.p11_team == jersey['id'] %}
+                <!-- jersey -->
+                <img src="{{jersey['jersey']}}" alt="img">
+                {% endif %}
+                {% endfor %}
+              </div>
+              <!-- player info -->
+              <div class="container">
+                <p>{{ player.p11_web_name }}</p>
+
+              </div>
+            </div>
+          </div>
+          {% endif %}
+
         </div>
-        <!-- player info -->
-        <div class="container">
-          <p>{{ users['p12_web_name'] }}</p>
-          <div>{{ users['p12_event_points'] }}</div>
-        </div>
+
       </div>
 
-      <!-- player 13 button -->
-      <div class="btn" data-toggle="modal" data-target="#id{{users['p13_element']}}">
-        <!-- player img -->
-        <div class="container">
-          {% for jersey in jerseys %}
-          {% if users['p13_team'] == jersey['id'] %}
-          <!-- jersey -->
-          <img src="{{jersey['jersey']}}" alt="img">
-          {% endif %}
-          {% endfor %}
-        </div>
-        <!-- player info -->
-        <div class="container">
-          <p>{{ users['p13_web_name'] }}</p>
-          <div>{{ users['p13_event_points'] }}</div>
-        </div>
-      </div>
+      <!-- subs -->
+      <div class="w3-container">
+        <!-- substitutes-->
+        <div class="w3-container" style="width: 105%;">
 
-      <!-- player 14 button -->
-      <div class="btn" data-toggle="modal" data-target="#id{{users['p14_element']}}">
-        <!-- player img -->
-        <div class="container">
-          {% for jersey in jerseys %}
-          {% if users['p14_team'] == jersey['id'] %}
-          <!-- jersey -->
-          <img src="{{jersey['jersey']}}" alt="img">
-          {% endif %}
-          {% endfor %}
-        </div>
-        <!-- player info -->
-        <div class="container">
-          <p>{{ users['p14_web_name'] }}</p>
-          <div>{{ users['p14_event_points'] }}</div>
-        </div>
-      </div>
+          <!-- sub 1 (p12)-->
+          <div class="w3-btn">
+            <!-- player button -->
+            <div class="btn" data-toggle="modal" data-target="#id{{player.p12_element}}">
+              <!-- player img -->
+              <div class="container">
+                {% for jersey in jerseys %}
+                {% if player.p12_team == jersey['id'] %}
+                <!-- jersey -->
+                <img src="{{jersey['jersey_goal']}}" alt="img">
+                {% endif %}
+                {% endfor %}
+              </div>
+              <!-- player info -->
+              <div class="container">
+                <p>{{ player.p12_web_name }}</p>
 
-      <!-- player 15 button -->
-      <div class="btn" data-toggle="modal" data-target="#id{{users['p15_element']}}">
-        <!-- player img -->
-        <div class="container">
-          {% for jersey in jerseys %}
-          {% if users['p15_team'] == jersey['id'] %}
-          <!-- jersey -->
-          <img src="{{jersey['jersey']}}" alt="img">
-          {% endif %}
-          {% endfor %}
-        </div>
-        <!-- player info -->
-        <div class="container">
-          <p>{{ users['p15_web_name'] }}</p>
-          <div>{{ users['p15_event_points'] }}</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- sub 2 (p13)-->
+          <div class="w3-btn">
+            <!-- player button -->
+            <div class="btn" data-toggle="modal" data-target="#id{{player.p13_element}}">
+              <!-- player img -->
+              <div class="container">
+                {% for jersey in jerseys %}
+                {% if player.p13_team == jersey['id'] %}
+                <!-- jersey -->
+                <img src="{{jersey['jersey']}}" alt="img">
+                {% endif %}
+                {% endfor %}
+              </div>
+              <!-- player info -->
+              <div class="container">
+                <p>{{ player.p13_web_name }}</p>
+
+              </div>
+            </div>
+          </div>
+
+          <!-- sub 3 (p14)-->
+          <div class="w3-btn">
+            <!-- player button -->
+            <div class="btn" data-toggle="modal" data-target="#id{{player.p14_element}}">
+              <!-- player img -->
+              <div class="container">
+                {% for jersey in jerseys %}
+                {% if player.p14_team == jersey['id'] %}
+                <!-- jersey -->
+                <img src="{{jersey['jersey']}}" alt="img">
+                {% endif %}
+                {% endfor %}
+              </div>
+              <!-- player info -->
+              <div class="container">
+                <p>{{ player.p14_web_name }}</p>
+
+              </div>
+            </div>
+          </div>
+
+          <!-- sub 4 (p15)-->
+          <div class="w3-btn">
+            <!-- player button -->
+            <div class="btn" data-toggle="modal" data-target="#id{{player.p15_element}}">
+              <!-- player img -->
+              <div class="container">
+                {% for jersey in jerseys %}
+                {% if player.p15_team == jersey['id'] %}
+                <!-- jersey -->
+                <img src="{{jersey['jersey']}}" alt="img">
+                {% endif %}
+                {% endfor %}
+              </div>
+              <!-- player info -->
+              <div class="container">
+                <p>{{ player.p15_web_name }}</p>
+
+              </div>
+            </div>
+          </div>
+
         </div>
       </div>
 
     </div>
 
   </div>
-  <hr>
 
-  <!-- BOTTOM NAVIGATION #################################################### -->
-  <!-- CLUB ANALYSIS -->
-  <h5>ASSISTANT MANAGER'S NOTES</h5>
-  <div class="">
-    <button type="button" class="btn btn-warning" data-toggle="collapse" data-target="#demo1">Keepers</button>
-      <div id="demo1" class="collapse">
-        <table class="table table-bordered">
-          <thead>
-            <tr>
-              <th>name</th>
-              <th>form</th>
-              <th>game week pts</th>
-              <th>total pts</th>
-              <th>price</th>
-              <th>teams selected by %</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>{{ users.p1_web_name }}</td>
-              <td>{{ users.p1_points_per_game }}</td>
-              <td>{{ users.p1_total_points }}</td>
-              <td>{{ users.p1_now_cost }}</td>
-              <td>{{ users.p1_selected_by_percent }}</td>
-            </tr>
-            <tr>
-              <td>{{ position[0] }}</td>
-              <td>{{ position.form }}</td>
-              <td>{{ position.points_per_game }}</td>
-              <td>{{ position.total_points }}</td>
-              <td>{{ position.selected_by_percent }}</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    <button type="button" class="btn btn-danger" data-toggle="collapse" data-target="#demo2">defenders</button>
-      <div id="demo2" class="collapse">
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-        sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-        quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-      </div>
-    <button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#demo3">midfielders</button>
-      <div id="demo3" class="collapse">
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-        sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-        quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-      </div>
-    <button type="button" class="btn btn-success" data-toggle="collapse" data-target="#demo4">forwards</button>
-      <div id="demo4" class="collapse">
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-        sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-        quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-      </div>
-    <!-- the scout -->
-    <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#demo5">fpl The Scout</button>
-      <div id="demo5" class="collapse">
-        <a href="https://www.premierleague.com/news/2178603">
-          <div class="container-fluid d-flex justify-content-center">
-            <h5 class="px-3 pt-3">FPL <i>Scout</i></h5>
-            <img style="width: 300px;" src="https://resources.premierleague.com/photos/2021/06/25/ea984f00-e553-4700-80a8-d13dbd5bfb5d/GettyImages-1319887209-1-.jpg?width=906&height=620" alt="">
-          </div>
-        </a>
-      </div>
+  <!-- NAVIGATION -->
+  <div class="w3-container w3-center">
+
+    <!-- navigation buttons -->
+    <div class="w3-container">
+
+      <!-- team analysis -->
+      <a href="/team/analysis/"><button type="button" class="btn btn-warning" data-toggle="collapse" data-target="#demo1">Team Analysis</button></a>
+      {% if player.classic_league_id == '' %}
+      <!-- league table -->
+      <a href="#"><button type="button" class="btn btn-danger" data-toggle="collapse" data-target="#demo2">League Table</button></a>
+
+      <!-- league awards -->
+      <a href="#"><button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#demo3">League Awards</button></a>
+
+      <!-- league chat -->
+      <a href="#"><button type="button" class="btn btn-success" data-toggle="collapse" data-target="#demo4">League Chat</button></a>
+      {% else %}
+      <!-- league table -->
+      <a href="/league/table/{{player.classic_league_id}}"><button type="button" class="btn btn-danger">League Table</button></a>
+
+      <!-- league awards -->
+      <a href="/league/awards/{{player.classic_league_id}}"><button type="button" class="btn btn-primary">League Awards</button></a>
+
+      <!-- league chat -->
+      <a href="/league/chat/{{player.id}}"><button type="button" class="btn btn-success" >League Chat</button></a>
+      {% endif %}
+      <!-- the scout -->
+      <a href="/the_scout"><button type="button" class="btn btn-info" data-toggle="collapse" data-target="#demo5">fpl The Scout</button></a>
+
+    </div>
     <br>
   </div>
-  <br>
+
+</div>
+
+<!-- SMALL SCREEN CONTENT -->
+<div class="w3-container w3-hide-large">
+
+  <!-- TEAM STATS AND PITCH VIEW -->
+  <div class="container">
+
+    <!-- team name and basic stats -->
+    <div class="container">
+      <h3 class="w3-margin">{{ player.team_name }}</h3>
+      <div class="w3-cell w3-padding"><b>Total Points:</b> {{ player.overall_points }}</div>
+      <div class="w3-cell w3-padding"><b>Overall Rank:</b> {{ player.overall_rank }}</div>
+      <div class="w3-cell w3-padding"><b>Gameweek Points:</b> {{ player.gameweek_points }}</div>
+    </div>
+
+    <!-- pitch view -- large screens-->
+    <div class="w3-display-container w3-center">
+
+      <!-- background image -->
+      <img src="\static\img\pitch1.png" alt="" style="width:90%; height:485px;">
+
+      <!-- starting xi container -->
+      <div class="w3-display-topmiddle" style="width:100%;">
+
+        <!-- keepers -->
+        <div class="w3-container" style="margin-top: 30px;">
+
+          <!-- keeper (p1)-->
+          <div class="w3-btn">
+            <!-- player button -->
+            <div class="btn" data-toggle="modal" data-target="#id{{player.p1_element}}">
+              <!-- player img -->
+              <div class="container">
+
+                <!-- jersey -->
+                {% for jersey in jerseys %}
+                {% if player.p2_team == jersey['id'] %}
+                <!-- jersey -->
+                <img src="{{jersey['jersey_goal']}}" alt="img">
+                {% endif %}
+                {% endfor %}
+
+              </div>
+              <!-- player info -->
+              <div class="container">
+                <p>{{ player.p1_web_name }}</p>
+
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- defenders -->
+        <div class="w3-container">
+
+          <!-- defender (p2) -->
+          {% if player.p2_element_type == 2 %}
+          <div class="w3-btn">
+            <!-- player button -->
+            <div class="btn" data-toggle="modal" data-target="#id{{player.p2_element}}">
+              <!-- player img -->
+              <div class="container">
+                {% for jersey in jerseys %}
+                {% if player.p2_team == jersey['id'] %}
+                <!-- jersey -->
+                <img src="{{jersey['jersey']}}" alt="img">
+                {% endif %}
+                {% endfor %}
+              </div>
+              <!-- player info -->
+              <div class="container">
+                <p>{{ player.p2_web_name }}</p>
+
+              </div>
+            </div>
+          </div>
+          {% endif %}
+
+          <!-- defender (p3) -->
+          {% if player.p3_element_type == 2 %}
+          <div class="w3-btn">
+            <!-- player button -->
+            <div class="btn" data-toggle="modal" data-target="#id{{player.p3_element}}">
+              <!-- player img -->
+              <div class="container">
+                {% for jersey in jerseys %}
+                {% if player.p3_team == jersey['id'] %}
+                <!-- jersey -->
+                <img src="{{jersey['jersey']}}" alt="img">
+                {% endif %}
+                {% endfor %}
+              </div>
+              <!-- player info -->
+              <div class="container">
+                <p>{{ player.p3_web_name }}</p>
+
+              </div>
+            </div>
+          </div>
+          {% endif %}
+
+          <!-- defender (p4) -->
+          {% if player.p4_element_type == 2 %}
+          <div class="w3-btn">
+            <!-- player button -->
+            <div class="btn" data-toggle="modal" data-target="#id{{player.p4_element}}">
+              <!-- player img -->
+              <div class="container">
+                {% for jersey in jerseys %}
+                {% if player.p4_team == jersey['id'] %}
+                <!-- jersey -->
+                <img src="{{jersey['jersey']}}" alt="img">
+                {% endif %}
+                {% endfor %}
+              </div>
+              <!-- player info -->
+              <div class="container">
+                <p>{{ player.p4_web_name }}</p>
+
+              </div>
+            </div>
+          </div>
+          {% endif %}
+
+          <!-- defender (p5) -->
+          {% if player.p5_element_type == 2 %}
+          <div class="w3-btn">
+            <!-- player button -->
+            <div class="btn" data-toggle="modal" data-target="#id{{player.p5_element}}">
+              <!-- player img -->
+              <div class="container">
+                {% for jersey in jerseys %}
+                {% if player.p5_team == jersey['id'] %}
+                <!-- jersey -->
+                <img src="{{jersey['jersey']}}" alt="img">
+                {% endif %}
+                {% endfor %}
+              </div>
+              <!-- player info -->
+              <div class="container">
+                <p>{{ player.p5_web_name }}</p>
+
+              </div>
+            </div>
+          </div>
+          {% endif %}
+
+          <!-- defender (p6) -->
+          {% if player.p6_element_type == 2 %}
+          <div class="w3-btn">
+            <!-- player button -->
+            <div class="btn" data-toggle="modal" data-target="#id{{player.p6_element}}">
+              <!-- player img -->
+              <div class="container">
+                {% for jersey in jerseys %}
+                {% if player.p6_team == jersey['id'] %}
+                <!-- jersey -->
+                <img src="{{jersey['jersey']}}" alt="img">
+                {% endif %}
+                {% endfor %}
+              </div>
+              <!-- player info -->
+              <div class="container">
+                <p>{{ player.p6_web_name }}</p>
+
+              </div>
+            </div>
+          </div>
+          {% endif %}
+
+        </div>
+
+        <!-- midfielders-->
+        <div class="w3-container">
+
+          <!-- midfielder (p5)-->
+          {% if player.p5_element_type == 3 %}
+          <div class="w3-btn">
+            <!-- player button -->
+            <div class="btn" data-toggle="modal" data-target="#id{{player.p5_element}}">
+              <!-- player img -->
+              <div class="container">
+                {% for jersey in jerseys %}
+                {% if player.p5_team == jersey['id'] %}
+                <!-- jersey -->
+                <img src="{{jersey['jersey']}}" alt="img">
+                {% endif %}
+                {% endfor %}
+              </div>
+              <!-- player info -->
+              <div class="container">
+                <p>{{ player.p5_web_name }}</p>
+
+              </div>
+            </div>
+          </div>
+          {% endif %}
+
+          <!-- midfielder (p6)-->
+          {% if player.p6_element_type == 3 %}
+          <div class="w3-btn">
+            <!-- player button -->
+            <div class="btn" data-toggle="modal" data-target="#id{{player.p6_element}}">
+              <!-- player img -->
+              <div class="container">
+                {% for jersey in jerseys %}
+                {% if player.p6_team == jersey['id'] %}
+                <!-- jersey -->
+                <img src="{{jersey['jersey']}}" alt="img">
+                {% endif %}
+                {% endfor %}
+              </div>
+              <!-- player info -->
+              <div class="container">
+                <p>{{ player.p6_web_name }}</p>
+
+              </div>
+            </div>
+          </div>
+          {% endif %}
+
+          <!-- midfielder (p7)-->
+          {% if player.p7_element_type == 3 %}
+          <div class="w3-btn">
+            <!-- player button -->
+            <div class="btn" data-toggle="modal" data-target="#id{{player.p7_element}}">
+              <!-- player img -->
+              <div class="container">
+                {% for jersey in jerseys %}
+                {% if player.p7_team == jersey['id'] %}
+                <!-- jersey -->
+                <img src="{{jersey['jersey']}}" alt="img">
+                {% endif %}
+                {% endfor %}
+              </div>
+              <!-- player info -->
+              <div class="container">
+                <p>{{ player.p7_web_name }}</p>
+
+              </div>
+            </div>
+          </div>
+          {% endif %}
+
+          <!-- midfielder (p8)-->
+          {% if player.p8_element_type == 3 %}
+          <div class="w3-btn">
+            <!-- player button -->
+            <div class="btn" data-toggle="modal" data-target="#id{{player.p8_element}}">
+              <!-- player img -->
+              <div class="container">
+                {% for jersey in jerseys %}
+                {% if player.p8_team == jersey['id'] %}
+                <!-- jersey -->
+                <img src="{{jersey['jersey']}}" alt="img">
+                {% endif %}
+                {% endfor %}
+              </div>
+              <!-- player info -->
+              <div class="container">
+                <p>{{ player.p8_web_name }}</p>
+
+              </div>
+            </div>
+          </div>
+          {% endif %}
+
+          <!-- midfielder (p9)-->
+          {% if player.p9_element_type == 3 %}
+          <div class="w3-btn">
+            <!-- player button -->
+            <div class="btn" data-toggle="modal" data-target="#id{{player.p9_element}}">
+              <!-- player img -->
+              <div class="container">
+                {% for jersey in jerseys %}
+                {% if player.p9_team == jersey['id'] %}
+                <!-- jersey -->
+                <img src="{{jersey['jersey']}}" alt="img">
+                {% endif %}
+                {% endfor %}
+              </div>
+              <!-- player info -->
+              <div class="container">
+                <p>{{ player.p9_web_name }}</p>
+
+              </div>
+            </div>
+          </div>
+          {% endif %}
+
+          <!-- midfielder (p10)-->
+          {% if player.p10_element_type == 3 %}
+          <div class="w3-btn">
+            <!-- player button -->
+            <div class="btn" data-toggle="modal" data-target="#id{{player.p10_element}}">
+              <!-- player img -->
+              <div class="container">
+                {% for jersey in jerseys %}
+                {% if player.p10_team == jersey['id'] %}
+                <!-- jersey -->
+                <img src="{{jersey['jersey']}}" alt="img">
+                {% endif %}
+                {% endfor %}
+              </div>
+              <!-- player info -->
+              <div class="container">
+                <p>{{ player.p10_web_name }}</p>
+
+              </div>
+            </div>
+          </div>
+          {% endif %}
+
+          <!-- midfielder (p11)-->
+          {% if player.p10_element_type == 3 %}
+          <div class="w3-btn">
+            <!-- player button -->
+            <div class="btn" data-toggle="modal" data-target="#id{{player.p11_element}}">
+              <!-- player img -->
+              <div class="container">
+                {% for jersey in jerseys %}
+                {% if player.p11_team == jersey['id'] %}
+                <!-- jersey -->
+                <img src="{{jersey['jersey']}}" alt="img">
+                {% endif %}
+                {% endfor %}
+              </div>
+              <!-- player info -->
+              <div class="container">
+                <p>{{ player.p11_web_name }}</p>
+
+              </div>
+            </div>
+          </div>
+          {% endif %}
+
+        </div>
+
+        <!-- forwards -->
+        <div class="w3-container">
+
+          <!-- forward (p9)-->
+          {% if player.p9_element_type == 4 %}
+          <div class="w3-btn">
+            <!-- player button -->
+            <div class="btn" data-toggle="modal" data-target="#id{{player.p9_element}}">
+              <!-- player img -->
+              <div class="container">
+                {% for jersey in jerseys %}
+                {% if player.p9_team == jersey['id'] %}
+                <!-- jersey -->
+                <img src="{{jersey['jersey']}}" alt="img">
+                {% endif %}
+                {% endfor %}
+              </div>
+              <!-- player info -->
+              <div class="container">
+                <p>{{ player.p9_web_name }}</p>
+
+              </div>
+            </div>
+          </div>
+          {% endif %}
+
+          <!-- forward (p10)-->
+          {% if player.p10_element_type == 4 %}
+          <div class="w3-btn">
+            <!-- player button -->
+            <div class="btn" data-toggle="modal" data-target="#id{{player.p10_element}}">
+              <!-- player img -->
+              <div class="container">
+                {% for jersey in jerseys %}
+                {% if player.p10_team == jersey['id'] %}
+                <!-- jersey -->
+                <img src="{{jersey['jersey']}}" alt="img">
+                {% endif %}
+                {% endfor %}
+              </div>
+              <!-- player info -->
+              <div class="container">
+                <p>{{ player.p10_web_name }}</p>
+
+              </div>
+            </div>
+          </div>
+          {% endif %}
+
+          <!-- forward (p11)-->
+          {% if player.p10_element_type == 4 %}
+          <div class="w3-btn">
+            <!-- player button -->
+            <div class="btn" data-toggle="modal" data-target="#id{{player.p11_element}}">
+              <!-- player img -->
+              <div class="container">
+                {% for jersey in jerseys %}
+                {% if player.p11_team == jersey['id'] %}
+                <!-- jersey -->
+                <img src="{{jersey['jersey']}}" alt="img">
+                {% endif %}
+                {% endfor %}
+              </div>
+              <!-- player info -->
+              <div class="container">
+                <p>{{ player.p11_web_name }}</p>
+
+              </div>
+            </div>
+          </div>
+          {% endif %}
+
+        </div>
+
+      </div>
+
+      <!-- subs -->
+      <div class="w3-container">
+        <!-- substitutes-->
+        <div class="w3-container" style="width: 105%;">
+
+          <!-- sub 1 (p12)-->
+          <div class="w3-btn">
+            <!-- player button -->
+            <div class="btn" data-toggle="modal" data-target="#id{{player.p12_element}}">
+              <!-- player img -->
+              <div class="container">
+                {% for jersey in jerseys %}
+                {% if player.p12_team == jersey['id'] %}
+                <!-- jersey -->
+                <img src="{{jersey['jersey_goal']}}" alt="img">
+                {% endif %}
+                {% endfor %}
+              </div>
+              <!-- player info -->
+              <div class="container">
+                <p>{{ player.p12_web_name }}</p>
+
+              </div>
+            </div>
+          </div>
+
+          <!-- sub 2 (p13)-->
+          <div class="w3-btn">
+            <!-- player button -->
+            <div class="btn" data-toggle="modal" data-target="#id{{player.p13_element}}">
+              <!-- player img -->
+              <div class="container">
+                {% for jersey in jerseys %}
+                {% if player.p13_team == jersey['id'] %}
+                <!-- jersey -->
+                <img src="{{jersey['jersey']}}" alt="img">
+                {% endif %}
+                {% endfor %}
+              </div>
+              <!-- player info -->
+              <div class="container">
+                <p>{{ player.p13_web_name }}</p>
+
+              </div>
+            </div>
+          </div>
+
+          <!-- sub 3 (p14)-->
+          <div class="w3-btn">
+            <!-- player button -->
+            <div class="btn" data-toggle="modal" data-target="#id{{player.p14_element}}">
+              <!-- player img -->
+              <div class="container">
+                {% for jersey in jerseys %}
+                {% if player.p14_team == jersey['id'] %}
+                <!-- jersey -->
+                <img src="{{jersey['jersey']}}" alt="img">
+                {% endif %}
+                {% endfor %}
+              </div>
+              <!-- player info -->
+              <div class="container">
+                <p>{{ player.p14_web_name }}</p>
+
+              </div>
+            </div>
+          </div>
+
+          <!-- sub 4 (p15)-->
+          <div class="w3-btn">
+            <!-- player button -->
+            <div class="btn" data-toggle="modal" data-target="#id{{player.p15_element}}">
+              <!-- player img -->
+              <div class="container">
+                {% for jersey in jerseys %}
+                {% if player.p15_team == jersey['id'] %}
+                <!-- jersey -->
+                <img src="{{jersey['jersey']}}" alt="img">
+                {% endif %}
+                {% endfor %}
+              </div>
+              <!-- player info -->
+              <div class="container">
+                <p>{{ player.p15_web_name }}</p>
+
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- NAVIGATION -->
+  <div class="w3-container w3-center">
+
+    <!-- navigation buttons -->
+    <div class="w3-container">
+
+      <!-- team analysis -->
+      <a href="/team/analysis"><button type="button" class="btn btn-warning" data-toggle="collapse" data-target="#demo1">Team Analysis</button></a>
+
+      <!-- league table -->
+      <a href="/league/table"><button type="button" class="btn btn-danger" data-toggle="collapse" data-target="#demo2">League Table</button></a>
+
+      <!-- league awards -->
+      <a href="/league/awards"><button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#demo3">League Awards</button></a>
+
+      <!-- league chat -->
+      <a href="/league/chat/{{player.id}}"><button type="button" class="btn btn-success" data-toggle="collapse" data-target="#demo4">League Chat</button></a>
+
+      <!-- the scout -->
+      <a href="/the_scout"><button type="button" class="btn btn-info" data-toggle="collapse" data-target="#demo5">fpl The Scout</button></a>
+
+    </div>
+    <br>
+  </div>
+
+</div>
+
+
+
+
+
+
 
 
   {% endblock %}

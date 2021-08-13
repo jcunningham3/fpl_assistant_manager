@@ -14,15 +14,47 @@ class Users(db.Model):
     email = db.Column(db.Text, nullable=False)
     password = db.Column(db.Text, nullable=False)
     team_id = db.Column(db.Integer, nullable=False, unique=True)
+
+    team = db.relationship("Team", back_populates='user')
+
+    @classmethod
+    def register(cls, email, pwd, team_id):
+        hashed = bcrypt.generate_password_hash(pwd)
+        hashed_utf8 = hashed.decode("utf8")
+        return cls(email=email, password=hashed_utf8, team_id=team_id)
+
+    @classmethod
+    def authenticate(cls, email, pwd):
+        u = Users.query.filter_by(email=email).first()
+
+        if u and bcrypt.check_password_hash(u.password, pwd):
+            return u
+        else:
+            return False
+
+class Team(db.Model):
+    __tablename__ = "team"
+
+    id = db.Column(db.Integer, primary_key=True, unique=True)
     # user fantasy profile data
     team_name = db.Column(db.Text, nullable=True)
+    fav_team = db.Column(db.Text, nullable=True)
+    fav_team_id = db.Column(db.Integer, nullable=True)
+    fav_team_logo = db.Column(db.Text, nullable=True)
+    fav_team_colors = db.Column(db.Text, nullable=True)
+    fav_team_jersey = db.Column(db.Text, nullable=True)
+    fav_team_jersey_goal = db.Column(db.Text, nullable=True)
     overall_points = db.Column(db.Integer, nullable=True)
     overall_rank = db.Column(db.Integer, nullable=True)
     gameweek_points = db.Column(db.Integer, nullable=True)
     gameweek_rank = db.Column(db.Integer, nullable=True)
+    classic_league_id = db.Column(db.Integer, nullable=True)
+    classic_league_name = db.Column(db.Text, nullable=True)
     classic_league_rank = db.Column(db.Integer, nullable=True)
     classic_league_rank_previous = db.Column(db.Integer, nullable=True)
 
+    # USERS X! and their data
+    #player in position 1 from picks
     p1_chance_of_playing_next_round = db.Column(db.Text, nullable=True)
     p1_chance_of_playing_this_round = db.Column(db.Text, nullable=True)
     p1_code = db.Column(db.Integer, nullable=True)
@@ -85,6 +117,7 @@ class Users(db.Model):
     p1_ict_index_rank = db.Column(db.Integer, nullable=True)
     p1_ict_index_rank_type = db.Column(db.Integer, nullable=True)
 
+    #player in position 2 from picks
     p2_chance_of_playing_next_round = db.Column(db.Text, nullable=True)
     p2_chance_of_playing_this_round = db.Column(db.Text, nullable=True)
     p2_code = db.Column(db.Integer, nullable=True)
@@ -953,27 +986,16 @@ class Users(db.Model):
     p15_ict_index_rank = db.Column(db.Integer, nullable=True)
     p15_ict_index_rank_type = db.Column(db.Integer, nullable=True)
 
-
-    @classmethod
-    def register(cls, email, pwd, team_id):
-        hashed = bcrypt.generate_password_hash(pwd)
-        hashed_utf8 = hashed.decode("utf8")
-        return cls(email=email, password=hashed_utf8, team_id=team_id)
-
-    @classmethod
-    def authenticate(cls, email, pwd):
-        u = Users.query.filter_by(email=email).first()
-
-        if u and bcrypt.check_password_hash(u.password, pwd):
-            return u
-        else:
-            return False
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    user = db.relationship('Users', back_populates='team')
 
 class Chat(db.Model):
     __tablename__ = "chat"
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     text = db.Column(db.Text, nullable=False)
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    date = db.Column(db.DateTime, nullable=False)
+    league_id = db.Column(db.Text, nullable=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('team.id'))
 
-    user = db.relationship('Users', backref='chat')
+    users = db.relationship('Team', backref='chat')
